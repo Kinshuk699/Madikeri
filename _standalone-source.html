@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaalibeedu · The Valley of Wind · Madikeri, Coorg</title>
+  <meta name="description" content="A 1.7-acre hilltop in Gaalibeedu, Madikeri — three plots, one ridge. Available together or individually." />
+
+  <meta name="ext-resource-dependency" content="hero.mp4" data-resource-id="heroVideo" />
+  <meta name="ext-resource-dependency" content="view.mp4" data-resource-id="viewVideo" />
+
+  <template id="__bundler_thumbnail" data-bg-color="#F5F0E8">
+    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+      <rect width="1200" height="800" fill="#F5F0E8"/>
+      <text x="600" y="430" font-family="Playfair Display, Garamond, serif" font-size="120" fill="#1A1A1A" text-anchor="middle" letter-spacing="-2">Gaali<tspan font-style="italic">beedu</tspan></text>
+      <line x1="500" y1="500" x2="700" y2="500" stroke="#B8915A" stroke-width="2"/>
+      <text x="600" y="540" font-family="Manrope, Helvetica, sans-serif" font-size="22" fill="#6F665A" text-anchor="middle" letter-spacing="8">THE VALLEY OF WIND</text>
+    </svg>
+  </template>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Manrope:wght@300;400;500;600&family=Inter:wght@300;400;500&family=Jost:wght@300;400;500&family=Noto+Sans+Kannada:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ensure Kannada has proper font */
+    .kannada, [lang="kn"] {
+      font-family: "Noto Sans Kannada", "Playfair Display", serif;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="plot-map.jsx"></script>
+  <script type="text/babel" src="mini-map.jsx"></script>
+  <script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
