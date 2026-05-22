@@ -223,7 +223,7 @@ function Story() {
         </div>
         <div className="reveal d2">
           <p>
-            The land rests at one of the highest points in Madikeri, where the monsoon arrives first and the dry months keep their cool. Coffee estates fall away on every side. The valley opens to the south, the ridges rise to the north, and the sound — most evenings — is wind through silver oak and the slow movement of mist.
+            The land rests at one of the highest points in Madikeri, where the monsoon arrives first and the dry months keep their cool. Coffee estates fall away on every side. The valley opens to the east, the ridges rise to the north, and the sound — most evenings — is wind through silver oak and the slow movement of mist.
           </p>
           <p>
             This is not a development. It is a hilltop being offered, quietly, to three families who understand that the most enduring luxury is a piece of weather you can return to.
@@ -246,7 +246,7 @@ function Story() {
         </div>
         <div className="item reveal d3">
           <div className="k">Aspect</div>
-          <div className="v">South<span className="u">facing</span></div>
+          <div className="v">East<span className="u">facing</span></div>
         </div>
       </div>
     </section>
@@ -359,7 +359,7 @@ function View() {
         />
         <div className="view-overlay" aria-hidden="true" />
         <div className="view-label">
-          <span>Panorama · South Aspect</span>
+          <span>Panorama · East Aspect</span>
           <br />
           <span className="mono">SHOT FROM GAALIBEEDU RIDGE</span>
         </div>
