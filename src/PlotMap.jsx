@@ -1,13 +1,13 @@
-/* global React, ReactDOM */
-const { useState, useEffect, useRef, useCallback } = React;
+import React from "react";
+import { PENDING_OWNER as P } from "./facts.js";
 
 /* ============ Plot Map (interactive overhead) ============ */
 function PlotMap({ active, onSelect }) {
   // 3 plot polygons over a stylized overhead. Plots arrayed across the hilltop.
   const plots = [
-    { id: "A", label: "Plot A", points: "60,120 240,90 260,300 80,330", area: "24,684 sq ft", desc: "The northern parcel, valley-facing" },
-    { id: "B", label: "Plot B", points: "240,90 420,80 440,290 260,300", area: "24,684 sq ft", desc: "The central crown, highest elevation" },
-    { id: "C", label: "Plot C", points: "420,80 600,100 620,310 440,290", area: "24,684 sq ft", desc: "The southern parcel, ridge access" }
+    { id: "A", label: "Plot A", points: "60,120 240,90 260,300 80,330", area: `${P.plots.each} sq ft`, desc: "The northern parcel, valley-facing" },
+    { id: "B", label: "Plot B", points: "240,90 420,80 440,290 260,300", area: `${P.plots.each} sq ft`, desc: "The central crown, highest elevation" },
+    { id: "C", label: "Plot C", points: "420,80 600,100 620,310 440,290", area: `${P.plots.each} sq ft`, desc: "The southern parcel, ridge access" }
   ];
   const colors = {
     A: { fill: "rgba(138, 154, 123, 0.25)", stroke: "rgba(138, 154, 123, 0.7)" },
@@ -112,4 +112,4 @@ function getCenter(pointsStr) {
   return { x, y };
 }
 
-window.PlotMap = PlotMap;
+export default PlotMap;

@@ -1,5 +1,21 @@
-/* global React, ReactDOM, PlotMap, MiniMap, TweaksPanel, TweakSection, TweakRadio, TweakColor, useTweaks */
-const { useState, useEffect, useRef, useCallback, useMemo } = React;
+import React, { useState, useEffect, useRef } from "react";
+import PlotMap from "./PlotMap.jsx";
+import MiniMap from "./MiniMap.jsx";
+import { VERIFIED, PENDING_OWNER, FAQ, SITE } from "./facts.js";
+
+const V = VERIFIED;
+const P = PENDING_OWNER;
+
+/* Pick a video rendition after hydration so the server HTML stays identical to the first client render. */
+function useVideoSrc(base) {
+  const [src, setSrc] = useState(undefined);
+  useEffect(() => {
+    const small = window.matchMedia("(max-width: 900px)").matches;
+    const saveData = navigator.connection && navigator.connection.saveData;
+    setSrc(saveData ? undefined : `/media/${base}-${small ? 720 : 1080}.mp4`);
+  }, [base]);
+  return src;
+}
 
 /* ============ Reveal-on-scroll hook ============ */
 function useReveal() {
@@ -110,13 +126,14 @@ function TopBar() {
   };
   return (
     <header className={"topbar" + (scrolled ? " scrolled" : "")}>
-      <div className="mark">Gaalibeedu</div>
+      <div className="mark">Galibeedu</div>
       <nav>
-        <a onClick={go("story")}>Story</a>
-        <a onClick={go("property")}>Property</a>
-        <a onClick={go("view")}>The View</a>
-        <a onClick={go("location")}>Location</a>
-        <a onClick={go("contact")}>Inquire</a>
+        <a href="#story" onClick={go("story")}>Story</a>
+        <a href="#property" onClick={go("property")}>Property</a>
+        <a href="#view" onClick={go("view")}>The View</a>
+        <a href="#location" onClick={go("location")}>Location</a>
+        <a href="#faq" onClick={go("faq")}>FAQ</a>
+        <a href="#contact" onClick={go("contact")}>Inquire</a>
       </nav>
       <div className="lang">ಗಾಳಿಬೀಡು</div>
     </header>
@@ -152,17 +169,19 @@ function Hero({ variant }) {
 
   // Ping-pong playback: forward → reverse → forward forever, no visible cut.
   usePingPong(videoRef, { active: inView });
+  const src = useVideoSrc("hero");
 
   return (
     <section className={"hero" + (variant === "split" ? " split" : "")} ref={heroRef} id="hero">
       <video
         ref={videoRef}
         className="hero-bg"
-        src={(typeof window !== "undefined" && window.__resources && window.__resources.heroVideo) || "hero.mp4"}
+        src={src}
+        poster="/media/hero-poster.jpg"
         muted
         playsInline
         autoPlay
-        preload="auto"
+        preload="metadata"
         aria-hidden="true"
       />
       <div className="hero-overlay" aria-hidden="true" />
@@ -172,12 +191,13 @@ function Hero({ variant }) {
         <div className="hero-meta-top">
           <span>Madikeri · Coorg · Karnataka</span>
           <span className="kannada">ಗಾಳಿಬೀಡು</span>
-          <span>Est. Land Parcel · 1.7 Acres</span>
+          <span>Est. Land Parcel · {P.areaAcres} Acres</span>
         </div>
 
         <div className="hero-title-block">
           <h1 className="hero-title">
-            Gaali<span className="ita">beedu</span>
+            Gali<span className="ita">beedu</span>
+            <span className="sr-only"> — valley-view land for sale in Madikeri, Coorg</span>
           </h1>
           <div className="hero-sub">
             <span>The Valley of Wind</span>
@@ -189,14 +209,14 @@ function Hero({ variant }) {
         <div className="hero-foot">
           <div className="col">
             Elevation
-            <span className="v">1,525 m</span>
+            <span className="v">{V.elevationDisplay} m</span>
           </div>
           <div className="scroll-indicator">
             <span>Scroll</span>
             <span className="scroll-line" />
           </div>
           <div className="col right">
-            North 12.43°  ·  East 75.74°
+            <a href={V.mapsUrl} target="_blank" rel="noopener" style={{ color: "inherit", textDecoration: "none" }}>{V.geo.display}</a>
             <span className="v">Three plots, one ridge</span>
           </div>
         </div>
@@ -218,12 +238,12 @@ function Story() {
         <div className="col-spacer" />
         <div className="reveal d1">
           <p className="lede">
-            <span className="drop">G</span>aalibeedu — <span className="serif-italic">ಗಾಳಿಬೀಡು</span> — translates, gently, to <em>the place where the wind dwells</em>. In Kodava country, names are not given lightly; this one was earned by a ridge that the breeze has been crossing for a thousand seasons.
+            <span className="drop">G</span>alibeedu — also written Gaalibeedu, <span className="serif-italic" lang="kn">ಗಾಳಿಬೀಡು</span> — translates, gently, to <em>the place where the wind dwells</em>. In Kodava country, names are not given lightly; this one was earned by a ridge that the breeze has been crossing for a thousand seasons.
           </p>
         </div>
         <div className="reveal d2">
           <p>
-            The land rests at one of the highest points in Madikeri, where the monsoon arrives first and the dry months keep their cool. Coffee estates fall away on every side. The valley opens to the east, the ridges rise to the north, and the sound — most evenings — is wind through silver oak and the slow movement of mist.
+            The land sits on a ridge at about {V.elevationM.toLocaleString("en-IN")} metres. Coffee estates fall away on every side. The valley opens to the east, the ridges rise to the north, and the sound — most evenings — is wind through silver oak and the slow movement of mist.
           </p>
           <p>
             This is not a development. It is a hilltop being offered, quietly, to three families who understand that the most enduring luxury is a piece of weather you can return to.
@@ -234,19 +254,19 @@ function Story() {
       <div className="story-meta">
         <div className="item reveal">
           <div className="k">Elevation</div>
-          <div className="v">1,525<span className="u">m ASL</span></div>
+          <div className="v">{V.elevationDisplay}<span className="u">m ASL</span></div>
         </div>
         <div className="item reveal d1">
-          <div className="k">Annual Rainfall</div>
-          <div className="v">2,800<span className="u">mm</span></div>
+          <div className="k">Annual Rainfall · Kodagu</div>
+          <div className="v">{V.rainfallMm}<span className="u">mm</span></div>
         </div>
         <div className="item reveal d2">
-          <div className="k">Avg. Temperature</div>
-          <div className="v">15–24<span className="u">°C</span></div>
+          <div className="k">Temperature · Kodagu</div>
+          <div className="v">{V.tempRange}<span className="u">°C</span></div>
         </div>
         <div className="item reveal d3">
           <div className="k">Aspect</div>
-          <div className="v">East<span className="u">facing</span></div>
+          <div className="v">{V.aspect}<span className="u">facing</span></div>
         </div>
       </div>
     </section>
@@ -257,16 +277,16 @@ function Story() {
 function Property() {
   const [active, setActive] = useState("B");
   const plots = {
-    A: { name: "Plot A", area: "24,684 sq ft", desc: "Northern parcel — valley-facing, terraced approach." },
-    B: { name: "Plot B", area: "24,684 sq ft", desc: "Central crown — highest elevation, widest aspect." },
-    C: { name: "Plot C", area: "24,684 sq ft", desc: "Southern parcel — ridge-line access, secluded." }
+    A: { name: "Plot A", area: `${P.plots.each} sq ft`, desc: P.plots.A },
+    B: { name: "Plot B", area: `${P.plots.each} sq ft`, desc: P.plots.B },
+    C: { name: "Plot C", area: `${P.plots.each} sq ft`, desc: P.plots.C }
   };
   const current = plots[active];
   return (
     <section id="property" className="block property">
       <div className="section-head reveal">
         <div className="label"><span className="num">II.</span>The Property</div>
-        <h2>1.7 acres, divided <span className="ita">thoughtfully</span> — held together, or held apart.</h2>
+        <h2>{P.areaAcres} acres, divided <span className="ita">thoughtfully</span> — held together, or held apart.</h2>
       </div>
 
       <div className="property-grid">
@@ -274,7 +294,7 @@ function Property() {
           <div className="plot-map-bg" />
           <PlotMap active={active} onSelect={setActive} />
           <div className="plot-label-overlay">
-            <span>Overhead · Gaalibeedu Ridge</span>
+            <span>Overhead · Galibeedu Ridge</span>
             <span className="compass">N ↑</span>
           </div>
           <div className="plot-readout">
@@ -290,7 +310,7 @@ function Property() {
 
         <div className="plot-list reveal d1">
           <h3>Three equal plots.</h3>
-          <p className="sub">Each 24,684 square feet — generously proportioned, each with its own approach and orientation. Hover or tap to see each plot on the map.</p>
+          <p className="sub">Each {P.plots.each} square feet — generously proportioned, each with its own approach and orientation. Hover or tap to see each plot on the map.</p>
 
           {["A", "B", "C"].map(id => (
             <div
@@ -304,18 +324,18 @@ function Property() {
                 Plot {id}
                 <span className="desc">{plots[id].desc}</span>
               </div>
-              <div className="size">24,684<span className="u">sq ft</span></div>
+              <div className="size">{P.plots.each}<span className="u">sq ft</span></div>
             </div>
           ))}
 
           <div className="property-stats">
             <div className="stat">
               <div className="k">Total Area</div>
-              <div className="v">1.7 acres</div>
+              <div className="v">{P.areaAcres} acres</div>
             </div>
             <div className="stat">
               <div className="k">Sq Feet</div>
-              <div className="v">74,052</div>
+              <div className="v">{P.areaSqft}</div>
             </div>
             <div className="stat">
               <div className="k">Plots</div>
@@ -339,6 +359,7 @@ function View() {
   const videoRef = useRef(null);
   const inView = useInView(sectionRef, { rootMargin: "300px" });
   usePingPong(videoRef, { active: inView });
+  const rendition = useVideoSrc("view");
 
   return (
     <section id="view" className="view full" ref={sectionRef}>
@@ -346,22 +367,19 @@ function View() {
         <video
           ref={videoRef}
           className="view-bg"
-          src={(() => {
-            if (!inView) return undefined;
-            const r = (typeof window !== "undefined" && window.__resources) || {};
-            return r.viewVideo || "view.mp4";
-          })()}
+          src={inView ? rendition : undefined}
+          poster="/media/view-poster.jpg"
           muted
           playsInline
           autoPlay
-          preload="auto"
+          preload="none"
           aria-hidden="true"
         />
         <div className="view-overlay" aria-hidden="true" />
         <div className="view-label">
           <span>Panorama · East Aspect</span>
           <br />
-          <span className="mono">SHOT FROM GAALIBEEDU RIDGE</span>
+          <span className="mono">SHOT FROM GALIBEEDU RIDGE</span>
         </div>
         <div className="view-quote-overlay">
           <div className="eyebrow"><span className="dot" />The View<span className="dot" /></div>
@@ -376,11 +394,12 @@ function View() {
 
 /* ============ Location ============ */
 function Location() {
+  const d = V.drive;
   const prox = [
-    { d: "12", u: "km", name: "Taj Madikeri Resort & Spa", desc: "Western approach via Madikeri town", tag: "Operating", state: "now" },
-    { d: "10", u: "km", name: "Club Mahindra Madikeri", desc: "Eastern ridge, coffee-estate setting", tag: "Operating", state: "now" },
-    { d: "—", u: "", name: "The Leela Coorg", desc: "Hilltop palace property, valley-facing", tag: "Opening late 2026", state: "soon" },
-    { d: "—", u: "", name: "Anantara Coorg", desc: "Forest-front resort, southern hills", tag: "Opening 2028", state: "soon" },
+    { d: d.clubMahindra.km, u: "km", name: d.clubMahindra.label, desc: `About ${d.clubMahindra.min} min by road via ${d.via}`, tag: "Operating", state: "now" },
+    { d: d.taj.km, u: "km", name: d.taj.label, desc: `About ${d.taj.min} min by road via ${d.via}`, tag: "Operating", state: "now", href: V.sources.taj },
+    { d: d.leela.km, u: "km", name: d.leela.label, desc: "71 villas on 76 acres; acquired and rebranded by The Leela in 2026", tag: "Unveiled Jul 2026", state: "now", href: V.sources.leelaUnveil },
+    { d: "—", u: "", name: "Anantara Zanti Coorg Resort", desc: "69-key greenfield resort near Madikeri (Minor Hotels)", tag: "Scheduled 2028", state: "soon", href: V.sources.anantara },
   ];
   return (
     <section id="location" className="block location">
@@ -391,16 +410,16 @@ function Location() {
 
       <div className="location-grid">
         <div className="location-prose reveal">
-          <p>Six hours from Bangalore by road today — and considerably less when the <span className="ita">Mysuru–Madikeri Expressway</span> opens.</p>
-          <p>The neighbours, if one calls them that, are the country's most considered resorts: two already in residence, two arriving by 2028.</p>
-          <p>A forty-foot private road delivers you to the gate.</p>
+          <p>About {d.bengaluru.time.replace("about ", "")} from Bengaluru by road ({d.bengaluru.km} km via NH 275). The 92 km <a className="ita" href={V.sources.pibHighway} target="_blank" rel="noopener" style={{ color: "inherit" }}>Mysuru–Kushalnagar four-lane highway</a> had its foundation stone laid in March 2023.</p>
+          <p>The neighbours, if one calls them that, are the country's most considered resorts: Taj, Club Mahindra and The Leela are already here, and Anantara is scheduled for 2028.</p>
+          <p>A {P.roadWidth.replace(" ft", "-foot")} private road delivers you to the gate.</p>
         </div>
 
         <div className="proximity reveal d1">
           {prox.map((p, i) => (
             <div key={i} className="prox-row">
               <div className="dist">{p.d}<span className="u">{p.u}</span></div>
-              <div className="name">{p.name}<span className="desc">{p.desc}</span></div>
+              <div className="name">{p.href ? <a href={p.href} target="_blank" rel="noopener" style={{ color: "inherit", textDecoration: "none" }}>{p.name}</a> : p.name}<span className="desc">{p.desc}</span></div>
               <div className={"tag " + p.state}>{p.tag}</div>
             </div>
           ))}
@@ -408,39 +427,76 @@ function Location() {
 
         <div className="location-meta">
           <div className="item reveal">
-            <div className="k">From Bangalore</div>
-            <div className="v">6 hours by road, faster by Expressway</div>
+            <div className="k">From Bengaluru</div>
+            <div className="v">{d.bengaluru.km} km · {d.bengaluru.time}</div>
           </div>
           <div className="item reveal d1">
             <div className="k">From Mangaluru Airport</div>
-            <div className="v">3 hours · 135 km</div>
+            <div className="v">{d.mangaluruAirport.km} km · {d.mangaluruAirport.time}</div>
           </div>
           <div className="item reveal d2">
-            <div className="k">Private Access</div>
-            <div className="v">40 ft road to the property gate</div>
+            <div className="k">From Madikeri</div>
+            <div className="v">{d.madikeri.km} km · about {d.madikeri.min} min</div>
           </div>
         </div>
 
         <div className="mini-map reveal">
           <MiniMap />
         </div>
+        <p className="map-note">Distances: {d.source}, from {V.geo.display}. <a href={V.mapsUrl} target="_blank" rel="noopener">Open in Google Maps</a>.</p>
       </div>
+    </section>
+  );
+}
+
+/* ============ FAQ (same array feeds the FAQPage JSON-LD) ============ */
+function Faq() {
+  return (
+    <section id="faq" className="block faq">
+      <div className="section-head reveal">
+        <div className="label"><span className="num">IV.</span>Questions</div>
+        <h2>Before you <span className="ita">visit.</span></h2>
+      </div>
+      <div className="faq-list">
+        {FAQ.map((f, i) => (
+          <details key={i} className="faq-item" open={i === 0}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+            {f.links && (
+              <p className="faq-links">
+                {f.links.map((l, j) => (
+                  <span key={j}>{j > 0 && " · "}<a href={l.href} target="_blank" rel="noopener">{l.text}</a></span>
+                ))}
+              </p>
+            )}
+          </details>
+        ))}
+      </div>
+      <p className="faq-updated">Updated {SITE.updatedHuman}.</p>
     </section>
   );
 }
 
 /* ============ Contact ============ */
 function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
-  const onSubmit = (e) => {
+  // Netlify Forms. The static form in the served HTML (form-name="inquiry") is what Netlify detects at deploy.
+  // With JS: AJAX post to "/" and an inline status. Without JS: native POST to /thanks/.
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const onSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.email) return;
-    setSent(true);
-    setTimeout(() => setSent(false), 5000);
-    setForm({ name: "", phone: "", email: "", message: "" });
+    const formEl = e.currentTarget;
+    setStatus("sending");
+    try {
+      const body = new URLSearchParams(new FormData(formEl)).toString();
+      const res = await fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      formEl.reset();
+      setStatus("sent");
+    } catch (err) {
+      setStatus("error");
+    }
   };
-  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+  const c = P.contact;
 
   return (
     <section id="contact" className="block contact">
@@ -453,13 +509,14 @@ function Contact() {
           <div className="contact-info">
             <div className="row">
               <div className="k">Correspondence</div>
-              <div className="v"><a href="mailto:polarisinfra322@gmail.com">polarisinfra322@gmail.com</a></div>
+              <div className="v"><a href={`mailto:${c.email}`}>{c.email}</a></div>
             </div>
             <div className="row">
               <div className="k">Direct Line</div>
               <div className="v">
-                <a href="tel:+919000159792">+91 90001 59792</a><br/>
-                <a href="tel:+919963372244">+91 99633 72244</a>
+                {c.phones.map((ph, i) => (
+                  <React.Fragment key={ph.tel}>{i > 0 && <br />}<a href={`tel:${ph.tel}`}>{ph.display}</a></React.Fragment>
+                ))}
               </div>
             </div>
             <div className="row">
@@ -469,154 +526,72 @@ function Contact() {
           </div>
         </div>
 
-        <form className="form reveal d1" onSubmit={onSubmit}>
+        <form className="form reveal d1" name="inquiry" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="company" onSubmit={onSubmit}>
+          <input type="hidden" name="form-name" value="inquiry" />
+          <p className="hp" aria-hidden="true"><label>Company <input name="company" tabIndex={-1} autoComplete="off" /></label></p>
           <div className="field">
-            <label>Name</label>
-            <input type="text" value={form.name} onChange={set("name")} placeholder="Your full name" required />
+            <label htmlFor="f-name">Name</label>
+            <input id="f-name" name="name" type="text" autoComplete="name" placeholder="Your full name" required />
           </div>
           <div className="field">
-            <label>Phone</label>
-            <input type="tel" value={form.phone} onChange={set("phone")} placeholder="+91 ·····" required />
+            <label htmlFor="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autoComplete="tel" placeholder="+91 ·····" required />
           </div>
           <div className="field">
-            <label>Email</label>
-            <input type="email" value={form.email} onChange={set("email")} placeholder="you@example.com" required />
+            <label htmlFor="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
           </div>
           <div className="field">
-            <label>Message</label>
-            <textarea value={form.message} onChange={set("message")} placeholder="A few words on what you're looking for." />
+            <label htmlFor="f-message">Message</label>
+            <textarea id="f-message" name="message" placeholder="A few words on what you're looking for." />
           </div>
 
-          <button type="submit" className="btn">
-            Reach out <span className="arrow" />
+          <button type="submit" className="btn" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : "Reach out"} <span className="arrow" />
           </button>
-          <div className={"sent-note" + (sent ? " show" : "")}>
-            Thank you. We will be in touch within two working days.
+          <div className={"sent-note" + (status === "sent" || status === "error" ? " show" : "")} role="status" aria-live="polite">
+            {status === "error"
+              ? <>That didn't go through. Please email <a href={`mailto:${c.email}`}>{c.email}</a>.</>
+              : "Thank you. We will be in touch within two working days."}
           </div>
         </form>
       </div>
 
       <div className="footer">
         <div>
-          <div className="mark">Gaalibeedu</div>
+          <div className="mark">Galibeedu</div>
           <div style={{marginTop: 8}} className="kannada">ಗಾಳಿಬೀಡು · The Valley of Wind</div>
         </div>
         <div className="center">
-          Marketed by Polaris Infra · Madikeri<br/>
-          <span style={{opacity: 0.6}}>© 2026 · All enquiries private</span>
+          Marketed by {P.marketedBy} · Madikeri<br/>
+          <span style={{opacity: 0.6}}>© 2026 · All enquiries private · Updated {SITE.updatedHuman}</span>
         </div>
         <div className="right">
-          A 1.7-acre hilltop · Coorg, Karnataka<br/>
-          <span style={{opacity: 0.6}}>Three plots · 24,684 sq ft each</span>
+          A {P.areaAcres}-acre hilltop · Coorg, Karnataka<br/>
+          <span style={{opacity: 0.6}}>Three plots · {P.plots.each} sq ft each</span>
         </div>
       </div>
     </section>
   );
 }
 
-/* ============ Tweaks ============ */
-function GaalibeeduTweaks({ tweaks, setTweak }) {
-  return (
-    <TweaksPanel title="Tweaks">
-      <TweakSection label="Typography" />
-      <TweakRadio
-        label="Type pairing"
-        value={tweaks.type}
-        onChange={(v) => setTweak("type", v)}
-        options={[
-          { value: "playfair", label: "Playfair" },
-          { value: "cormorant", label: "Cormorant" },
-          { value: "garamond", label: "Garamond" },
-        ]}
-      />
-
-      <TweakSection label="Palette" />
-      <TweakColor
-        label="Accent"
-        value={tweaks.accent}
-        onChange={(v) => setTweak("accent", v)}
-        options={["#B8915A", "#8A9A7B", "#7B6A55", "#A03F2A"]}
-      />
-      <TweakRadio
-        label="Background"
-        value={tweaks.bg}
-        onChange={(v) => setTweak("bg", v)}
-        options={[
-          { value: "cream", label: "Cream" },
-          { value: "stone", label: "Stone" },
-        ]}
-      />
-
-      <TweakSection label="Layout" />
-      <TweakRadio
-        label="Hero"
-        value={tweaks.hero}
-        onChange={(v) => setTweak("hero", v)}
-        options={[
-          { value: "stacked", label: "Stacked" },
-          { value: "split", label: "Centered" },
-        ]}
-      />
-    </TweaksPanel>
-  );
-}
-
 /* ============ App ============ */
-function App() {
-  const [tweaks, setTweak] = useTweaks(/*EDITMODE-BEGIN*/{
-    "type": "playfair",
-    "accent": "#B8915A",
-    "hero": "stacked",
-    "bg": "cream"
-  }/*EDITMODE-END*/);
-
+// The design-tool "Tweaks" panel was removed for production. Its defaults (Playfair/Manrope, gold accent,
+// cream background, stacked hero) are exactly the :root values in styles.css, so the look is unchanged.
+export default function App() {
   useReveal();
-
-  // apply tweaks to CSS vars
-  useEffect(() => {
-    const root = document.documentElement;
-    root.style.setProperty("--accent", tweaks.accent);
-
-    if (tweaks.type === "cormorant") {
-      root.style.setProperty("--serif", '"Cormorant Garamond", "EB Garamond", Garamond, serif');
-      root.style.setProperty("--sans", '"Inter", "Helvetica Neue", Arial, sans-serif');
-    } else if (tweaks.type === "garamond") {
-      root.style.setProperty("--serif", '"EB Garamond", "Apple Garamond", Garamond, serif');
-      root.style.setProperty("--sans", '"Jost", "Helvetica Neue", Arial, sans-serif');
-    } else {
-      root.style.setProperty("--serif", '"Playfair Display", "EB Garamond", Garamond, serif');
-      root.style.setProperty("--sans", '"Manrope", "Söhne", "Helvetica Neue", Arial, sans-serif');
-    }
-
-    if (tweaks.bg === "stone") {
-      root.style.setProperty("--cream", "#1A1A1A");
-      root.style.setProperty("--cream-deep", "#221E1A");
-      root.style.setProperty("--stone", "#F5F0E8");
-      root.style.setProperty("--charcoal", "#ECE5D7");
-      root.style.setProperty("--muted", "#9A8F7E");
-      root.style.setProperty("--hairline", "rgba(245, 240, 232, 0.18)");
-    } else {
-      root.style.setProperty("--cream", "#F5F0E8");
-      root.style.setProperty("--cream-deep", "#ECE5D7");
-      root.style.setProperty("--stone", "#1A1A1A");
-      root.style.setProperty("--charcoal", "#2A2520");
-      root.style.setProperty("--muted", "#6F665A");
-      root.style.setProperty("--hairline", "rgba(26, 26, 26, 0.12)");
-    }
-  }, [tweaks]);
-
   return (
     <>
       <TopBar />
-      <Hero variant={tweaks.hero} />
-      <Story />
-      <Property />
-      <View />
-      <Location />
-      <Contact />
-      <GaalibeeduTweaks tweaks={tweaks} setTweak={setTweak} />
+      <main>
+        <Hero variant="stacked" />
+        <Story />
+        <Property />
+        <View />
+        <Location />
+        <Faq />
+        <Contact />
+      </main>
     </>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);

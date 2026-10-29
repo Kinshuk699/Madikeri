@@ -1,2 +1,50 @@
+# Build: prerender the page into dist/ (see scripts/build.mjs).
+# Manual deploys: run `npm ci && npm run build`, then deploy the dist/ folder (NOT the repo root).
 [build]
-  publish = "."
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Old property URL -> canonical root (301)
+[[redirects]]
+  from = "/gaalibeedu"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/Gaalibeedu.html"
+  to = "/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+[[headers]]
+  for = "/netlify-forms.html"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+[[headers]]
+  for = "/thanks/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/favicon.svg"
+  status = 301
