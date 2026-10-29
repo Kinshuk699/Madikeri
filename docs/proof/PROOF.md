@@ -54,3 +54,26 @@ Reports: before https://pagespeed.web.dev/analysis/https-landincoorg-in-gaalibee
 ## 5. Not measured
 - The *production* landincoorg.in after the change: the PR is not merged or deployed (rule: never push to main).
 - Search Console URL Inspection: needs domain ownership (see checklist).
+
+
+---
+# Round 2: after owner decisions (a5332d7), 30 Oct 2026 IST
+
+## Raw HTML per crawler (staging, `scripts`: round2 facts_check)
+| UA | HTTP | price "₹2.5 Crore" | area "81,508" | "1.87 acres" | "as per survey" | coords "12.4964° N · 75.7023° E" | polarisinfra322@gmail.com | JSON-LD Offer |
+|---|---|---|---|---|---|---|---|---|
+| GPTBot | 200 | Y ×2 | Y ×6 | Y ×3 | Y ×5 | Y ×3 | Y ×1 | 25000000 INR |
+| OAI-SearchBot | 200 | Y ×2 | Y ×6 | Y ×3 | Y ×5 | Y ×3 | Y ×1 | 25000000 INR |
+| PerplexityBot | 200 | Y ×2 | Y ×6 | Y ×3 | Y ×5 | Y ×3 | Y ×1 | 25000000 INR |
+| ClaudeBot | 200 | Y ×2 | Y ×6 | Y ×3 | Y ×5 | Y ×3 | Y ×1 | 25000000 INR |
+| Googlebot | 200 | Y ×2 | Y ×6 | Y ×3 | Y ×5 | Y ×3 | Y ×1 | 25000000 INR |
+
+## Google Rich Results Test (landincoorg-rrt-ab12, 30 Oct 2026 01:29:32 IST)
+"No items detected. No rich results detected in this URL." Crawl: crawled successfully · Crawled as: Google Inspection Tool smartphone · Crawl allowed? Yes · Page fetch: Successful · Indexing allowed? Yes.
+Result URL: https://search.google.com/test/rich-results/result?id=dHuKdL9jIAtZCG2d-jn7IA
+
+## validator.schema.org (same URL)
+RealEstateListing: 0 errors, 0 warnings. Offer price 25000000 INR; Place.additionalProperty "Land area (as per survey)" 7572.389 MTK; FAQPage with 8 questions.
+
+## Form → email
+Submitted from a real, windowed browser (Hermes preview pane) at 2026-10-29T19:58:33Z (01:28 IST), name "Rohan Nair", normal enquiry text. Netlify state: **verified** (id 6ae3a5697f320ba612e492c5). Owner confirmed the notification **arrived in the Inbox** of anshujsahni322@gmail.com.
