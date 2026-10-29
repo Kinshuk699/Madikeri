@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import PlotMap from "./PlotMap.jsx";
 import MiniMap from "./MiniMap.jsx";
-import { VERIFIED, PENDING_OWNER, FAQ, SITE } from "./facts.js";
+import { VERIFIED, OWNER_STATED, FAQ, SITE } from "./facts.js";
 
 const V = VERIFIED;
-const P = PENDING_OWNER;
+const A = VERIFIED.area;
+const O = OWNER_STATED;
 
 /* Pick a video rendition after hydration so the server HTML stays identical to the first client render. */
 function useVideoSrc(base) {
@@ -191,7 +191,7 @@ function Hero({ variant }) {
         <div className="hero-meta-top">
           <span>Madikeri · Coorg · Karnataka</span>
           <span className="kannada">ಗಾಳಿಬೀಡು</span>
-          <span>Est. Land Parcel · {P.areaAcres} Acres</span>
+          <span>Est. Land Parcel · {A.acres} Acres</span>
         </div>
 
         <div className="hero-title-block">
@@ -217,7 +217,7 @@ function Hero({ variant }) {
           </div>
           <div className="col right">
             <a href={V.mapsUrl} target="_blank" rel="noopener" style={{ color: "inherit", textDecoration: "none" }}>{V.geo.display}</a>
-            <span className="v">Three plots, one ridge</span>
+            <span className="v">One parcel, one ridge</span>
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@ function Story() {
             The land sits on a ridge at about {V.elevationM.toLocaleString("en-IN")} metres. Coffee estates fall away on every side. The valley opens to the east, the ridges rise to the north, and the sound — most evenings — is wind through silver oak and the slow movement of mist.
           </p>
           <p>
-            This is not a development. It is a hilltop being offered, quietly, to three families who understand that the most enduring luxury is a piece of weather you can return to.
+            This is not a development. It is a hilltop being offered, quietly, to one family who understands that the most enduring luxury is a piece of weather you can return to.
           </p>
         </div>
       </div>
@@ -273,80 +273,74 @@ function Story() {
   );
 }
 
-/* ============ Property + Plot map ============ */
+/* ============ Property (single parcel) ============ */
 function Property() {
-  const [active, setActive] = useState("B");
-  const plots = {
-    A: { name: "Plot A", area: `${P.plots.each} sq ft`, desc: P.plots.A },
-    B: { name: "Plot B", area: `${P.plots.each} sq ft`, desc: P.plots.B },
-    C: { name: "Plot C", area: `${P.plots.each} sq ft`, desc: P.plots.C }
-  };
-  const current = plots[active];
+  const specs = [
+    { mark: "i", name: "Area", desc: `${A.acresGuntas} · ${A.sqm} sq m · ${A.qualifier}`, size: A.sqft, u: "sq ft" },
+    { mark: "ii", name: "Elevation", desc: `Survey benchmarks · the ground falls to the ${V.aspect.toLowerCase()}`, size: V.elevationDisplay, u: "m" },
+    { mark: "iii", name: "Access", desc: `${O.road[0].toUpperCase()}${O.road.slice(1)}`, size: O.roadWidth.replace(" ft", ""), u: "ft" },
+  ];
   return (
     <section id="property" className="block property">
       <div className="section-head reveal">
         <div className="label"><span className="num">II.</span>The Property</div>
-        <h2>{P.areaAcres} acres, divided <span className="ita">thoughtfully</span> — held together, or held apart.</h2>
+        <h2>{A.acres} acres, held <span className="ita">whole</span> — one parcel, one ridge.</h2>
       </div>
 
       <div className="property-grid">
-        <div className="plot-map-wrap reveal" onMouseLeave={() => setActive("B")}>
+        <div className="plot-map-wrap reveal">
           <div className="plot-map-bg" />
-          <PlotMap active={active} onSelect={setActive} />
+          <img className="parcel-still" src="/media/parcel-still.jpg" width="960" height="1200" loading="lazy" decoding="async"
+               alt="Drone view over the Galibeedu land, Madikeri, Coorg" />
           <div className="plot-label-overlay">
             <span>Overhead · Galibeedu Ridge</span>
-            <span className="compass">N ↑</span>
+            <span className="compass">Drone still</span>
           </div>
           <div className="plot-readout">
             <div className="name">
-              {current.name.split(" ")[0]} <span className="ita">{current.name.split(" ")[1]}</span>
+              One <span className="ita">parcel</span>
             </div>
             <div className="meta">
-              Area
-              <span className="v">{current.area}</span>
+              Area · {A.qualifier}
+              <span className="v">{A.sqft} sq ft</span>
             </div>
           </div>
         </div>
 
         <div className="plot-list reveal d1">
-          <h3>Three equal plots.</h3>
-          <p className="sub">Each {P.plots.each} square feet — generously proportioned, each with its own approach and orientation. Hover or tap to see each plot on the map.</p>
+          <h3>One parcel, with room for {O.roomForHomes} homes.</h3>
+          <p className="sub">{A.acresGuntas} as per survey — about {A.sqft} square feet of east-facing ridge, sold as a single parcel.</p>
 
-          {["A", "B", "C"].map(id => (
-            <div
-              key={id}
-              className={"plot-row" + (active === id ? " active" : "")}
-              onMouseEnter={() => setActive(id)}
-              onClick={() => setActive(id)}
-            >
-              <div className="letter">{id}</div>
+          {specs.map((r) => (
+            <div key={r.mark} className="plot-row">
+              <div className="letter">{r.mark}</div>
               <div className="name">
-                Plot {id}
-                <span className="desc">{plots[id].desc}</span>
+                {r.name}
+                <span className="desc">{r.desc}</span>
               </div>
-              <div className="size">{P.plots.each}<span className="u">sq ft</span></div>
+              <div className="size">{r.size}<span className="u">{r.u}</span></div>
             </div>
           ))}
 
           <div className="property-stats">
             <div className="stat">
               <div className="k">Total Area</div>
-              <div className="v">{P.areaAcres} acres</div>
+              <div className="v">{A.acres} acres</div>
             </div>
             <div className="stat">
               <div className="k">Sq Feet</div>
-              <div className="v">{P.areaSqft}</div>
+              <div className="v">{A.sqft}</div>
             </div>
             <div className="stat">
-              <div className="k">Plots</div>
-              <div className="v">3 equal</div>
+              <div className="k">Asking Price</div>
+              <div className="v">{O.price.short}</div>
             </div>
           </div>
         </div>
 
         <div className="together reveal d2">
-          <div className="lhs">Available together. Or held individually.</div>
-          <div className="rhs">By private inquiry only</div>
+          <div className="lhs">Offered as one parcel. Room for {O.roomForHomes} homes.</div>
+          <div className="rhs">{O.price.display} · {O.price.terms}</div>
         </div>
       </div>
     </section>
@@ -412,7 +406,7 @@ function Location() {
         <div className="location-prose reveal">
           <p>About {d.bengaluru.time.replace("about ", "")} from Bengaluru by road ({d.bengaluru.km} km via NH 275). The 92 km <a className="ita" href={V.sources.pibHighway} target="_blank" rel="noopener" style={{ color: "inherit" }}>Mysuru–Kushalnagar four-lane highway</a> had its foundation stone laid in March 2023.</p>
           <p>The neighbours, if one calls them that, are the country's most considered resorts: Taj, Club Mahindra and The Leela are already here, and Anantara is scheduled for 2028.</p>
-          <p>A {P.roadWidth.replace(" ft", "-foot")} private road delivers you to the gate.</p>
+          <p>A {O.roadWidth.replace(" ft", "-foot")} approach road delivers you to the gate.</p>
         </div>
 
         <div className="proximity reveal d1">
@@ -496,7 +490,7 @@ function Contact() {
       setStatus("error");
     }
   };
-  const c = P.contact;
+  const c = O.contact;
 
   return (
     <section id="contact" className="block contact">
@@ -518,6 +512,10 @@ function Contact() {
                   <React.Fragment key={ph.tel}>{i > 0 && <br />}<a href={`tel:${ph.tel}`}>{ph.display}</a></React.Fragment>
                 ))}
               </div>
+            </div>
+            <div className="row">
+              <div className="k">Terms</div>
+              <div className="v">{O.direct}</div>
             </div>
             <div className="row">
               <div className="k">Viewings</div>
@@ -563,12 +561,12 @@ function Contact() {
           <div style={{marginTop: 8}} className="kannada">ಗಾಳಿಬೀಡು · The Valley of Wind</div>
         </div>
         <div className="center">
-          Marketed by {P.marketedBy} · Madikeri<br/>
+          Marketed by {O.marketedBy} · Madikeri<br/>
           <span style={{opacity: 0.6}}>© 2026 · All enquiries private · Updated {SITE.updatedHuman}</span>
         </div>
         <div className="right">
-          A {P.areaAcres}-acre hilltop · Coorg, Karnataka<br/>
-          <span style={{opacity: 0.6}}>Three plots · {P.plots.each} sq ft each</span>
+          A {A.acres}-acre hilltop · Coorg, Karnataka<br/>
+          <span style={{opacity: 0.6}}>One parcel · {A.sqft} sq ft as per survey</span>
         </div>
       </div>
     </section>

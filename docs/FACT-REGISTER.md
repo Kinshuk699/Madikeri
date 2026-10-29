@@ -1,6 +1,6 @@
 # Fact register: landincoorg.in (Galibeedu parcel)
 
-Compiled 29 Oct 2026 (IST). Only primary sources count. "Site" means the live `/gaalibeedu` build = repo `main` @ `70bae34`.
+Compiled 29 Oct 2026 (IST). Owner decisions applied 30 Oct 2026; see OWNER-DECISIONS.md. Only primary sources count. "Site" means the live `/gaalibeedu` build = repo `main` @ `70bae34`.
 
 ## Primary documents found on the owner's machine (`~/Downloads`)
 
@@ -12,20 +12,20 @@ Compiled 29 Oct 2026 (IST). Only primary sources count. "Site" means the live `/
 | — | Polaris Infra brochure (PDF, Apr 2025) | says "1.6-acre". It is marketing material, not a primary source. |
 | — | **RTC / pahani, EC, mutation** | **NOT FOUND anywhere on this machine** |
 
-> ⚠️ **The two survey drawings disagree:** 1.87 ac / 81,508 sq ft (D1) against 1.93 ac / 84,084 sq ft (D2). The site's 1.7 ac / 74,052 sq ft matches neither, and the brochure's 1.6 ac matches nothing. Only the RTC can settle it.
+> ⚠️ **Open discrepancy, being checked with the surveyor by the owner.** The site uses D1, worded "as per survey". **The two survey drawings disagree:** 1.87 ac / 81,508 sq ft (D1) against 1.93 ac / 84,084 sq ft (D2). The site's 1.7 ac / 74,052 sq ft matches neither, and the brochure's 1.6 ac matches nothing. Only the RTC can settle it.
 
 ## Register
 
 | # | Claim on site | Value shown | Primary source | Verified value | Status |
 |---|---|---|---|---|---|
-| 1 | Total area | 1.7 acres | D1, D2 (RTC not available) | D1: 1 ac 34.80 gu = 1.87 ac. D2: 1 ac 93.02 cents = 1.93 ac | **needs owner** (RTC) |
-| 2 | Area in sq ft | 74,052 | D1, D2 | D1: 81,508 (7,572.389 m²). D2: 84,084 (7,811.70 m²) | **needs owner** (RTC) |
-| 3 | Three equal plots, 24,684 sq ft each, "available individually" | 3 × 24,684 | Owner says the land cannot be partitioned. Neither drawing shows three equal plots. | — | **remove / needs owner** (decision 1) |
+| 1 | Total area | 1.7 acres | **D1** (Shashikiran Surveyors layout): "TOTAL SURVEYED AREA = 1 ACRES 34.80 GUNTAS". RTC not available. | **1.87 ac (1 acre 34.8 guntas), always worded "as per survey"**. Never presented as the RTC figure. **Open discrepancy:** D2 (Heritage Surveys) says 1 ac 93.02 cents = 1.93 ac; owner is checking with the surveyor. | **corrected** (owner decision 2, 29 Oct 2026) |
+| 2 | Area in sq ft | 74,052 | **D1** area statement: 7,572.389 sq m / 81,508.438 sq ft | **81,508 sq ft / 7,572.389 sq m, as per survey** (D2's 84,084 sq ft is an open discrepancy) | **corrected** (decision 2) |
+| 3 | Three equal plots, 24,684 sq ft each, "available individually" | 3 × 24,684 | Owner statement (decision 1, 29 Oct 2026): sold as ONE parcel only | One parcel. "Room for two homes" is permitted wording (owner). No part is sold separately. | **removed** (plot map, plot list, footer, hero line, "held apart", "held individually") |
 | 4 | Title / revenue village | "Gaalibeedu" | D1 title block "Baribellachchu, Madikeri"; D2 "Galibidu, Madikeri". RTC not available. | Unresolved: the RTC shows the revenue village and survey number | **needs owner** |
 | 5 | Coordinates | N 12.43° E 75.74° | D1 grid converted with pyproj, **assuming UTM 43N / WGS84 (EPSG:32643)** | Survey-extent centre **12.49643° N, 75.70232° E**. Corners 12.49530–12.49756 N, 75.70174–75.70289 E. The site's point is **8.4 km away** (south-east, near Madikeri town). | **corrected** |
 | 5a | Check on the UTM assumption | — | Copernicus GLO-30 DEM sampled on the D1 grid | DEM 1,025–1,055 m (mean 1,043.7) against D1 levels 1,037.4–1,056.0. Matches. The drawing's "To Mukkodlu" (NE) and "To Kalakeri Nidugane" (S) labels are also on the correct sides of this point (OSM). | supports #5 |
 | 6 | Elevation | 1,525 m ASL | D1 benchmarks TBM1 1,040.438 · TBM2 1,038.506 · TBM3 1,044.294 · TBM4 1,044.073; spot levels 1,037.4–1,056.0 | **≈1,040 m (1,037–1,056 m across the parcel)**. Copernicus 30 m DEM agrees (1,025–1,055 m). | **corrected** |
-| 7 | "one of the highest points in Madikeri" | — | Copernicus DEM | Madikeri town centre sits at ~1,160 m, about 120 m higher than the parcel | **remove** (contradicted) |
+| 7 | "one of the highest points in Madikeri" | — | Copernicus DEM | Madikeri town centre sits at ~1,160 m, about 120 m higher than the parcel | **removed** (confirmed absent from the built HTML and llms.txt, 29 Oct 2026) |
 | 8 | Distance to Taj Madikeri | 12 km (site) / 7 km (brochure) | Google Maps driving from 12.496429, 75.702316, 29 Oct 2026. OSRM as a check. | **13.1 km, ~36 min** via Kalooru Rd (OSRM 14.8 km to the OSM "Vivanta by Taj" node) | **corrected** |
 | 9 | Distance to Club Mahindra Madikeri | 10 km / 8 km | Google Maps; OSRM | **9.7 km, ~25 min** (OSRM 10.9 km) | **corrected** |
 | 10 | Distance to Madikeri town | 8 km (mini-map); brochure "15 minutes" | Google Maps to KSRTC Madikeri bus stand; OSRM to the town node | **13.7 km, ~36 min** (OSRM 15.5 km) | **corrected** |
@@ -38,14 +38,16 @@ Compiled 29 Oct 2026 (IST). Only primary sources count. "Site" means the live `/
 | 17 | Annual rainfall | 2,800 mm | [kodagu.nic.in/en/tourism](https://kodagu.nic.in/en/tourism) | "about 310 cm" (district average, not site-specific) | **corrected** (labelled district-level) |
 | 18 | Avg. temperature | 15–24 °C | [kodagu.nic.in/en/about-district](https://kodagu.nic.in/en/about-district); Census DCHB Kodagu p.24 | Average 15 °C, range 11–28 °C (district) | **corrected** (labelled district-level) |
 | 19 | Aspect | East-facing | D1 levels plus DEM | DEM falls from ~1,050 m (west columns) to ~1,025–1,040 m (east columns), so the slope runs down to the east | **verified** |
-| 20 | 40 ft private road to the gate | 40 ft | D1 shows a ROAD on the boundary, but no road width is labelled | — | **needs owner** (removed until sourced) |
-| 21 | Contact details | polarisinfra322@gmail.com · +91 90001 59792 · +91 99633 72244 | — (owner) | — | **needs owner** (confirm, then use the same on 1acre, 99acres and Reddit) |
-| 22 | "Marketed by Polaris Infra" | — | — | The planned author line is "Ansh, who owns and is selling" | **needs owner** (decision 5) |
-| 23 | Price | none on site ("private inquiry"). The old draft (`coorg-property-website.jsx`) had ₹2.10 Cr. | — | — | **needs owner** (decision 3) |
+| 20 | 40 ft private road to the gate | 40 ft | **Owner statement** (decision 7). D1 shows a ROAD on the boundary but no width. | "40 ft approach road". The word "private" is removed. | **owner-stated, not surveyed** |
+| 21 | Contact details | polarisinfra322@gmail.com · +91 90001 59792 · +91 99633 72244 | Owner statement (decision 6) | Unchanged on display. Form notifications go to anshujsahni322@gmail.com (Netlify setting, not shown). | **owner-confirmed** |
+| 22 | "Marketed by Polaris Infra" | — | Owner statement (decision 5) | Footer line kept. Added to the contact section: "Offered directly by the owners. No brokerage." | **owner-confirmed** |
+| 23 | Price | none on site | Owner statement (decision 3) | **₹2.5 Crore total, negotiable**. Shown in specs, meta description and JSON-LD Offer (price 25000000, INR). No per-sq-ft or per-acre figure is shown. | **owner-stated** |
 | 24 | Elevation change "17 m" (old draft only) | — | D1 levels | 1,037.4–1,056.0 m gives ≈18.6 m | not on the live site; if used, cite as ≈19 m |
 
 ### What I could NOT verify
-- **RTC / pahani, EC, mutation, survey number, khata:** not on this machine. Area, title and revenue village stay "needs owner".
+- **RTC / pahani, EC, mutation, survey number, khata:** not on this machine. The site area is the D1 *survey* figure, not an RTC figure. Revenue village (row 4) is still unresolved.
+- **D1 vs D2 area:** unresolved (1.87 vs 1.93 ac). The owner is checking with the surveyor.
+- **Price, one-parcel sale, room for two homes, 40 ft road:** owner statements, not independently verified.
 - **The basis of the UTM assumption:** D1 doesn't say which projection it uses. EPSG:32643 is inferred from the grid values and is backed up by the DEM match and the place-name check, but the surveyor (Shashikiran Surveyors, Ph. 9986932559) should confirm it.
 - **Mysuru–Kushalnagar completion date:** I found no NHAI or PIB source, so no date is claimed.
 - **Anantara Zanti Coorg exact site:** not published.

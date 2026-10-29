@@ -46,7 +46,10 @@ await build({
 });
 
 const ssr = await import(pathToFileURL(path.join(TMP, "ssr.mjs")).href + "?" + Date.now());
-const { render, SITE, VERIFIED: V, PENDING_OWNER: P, FAQ, TITLE, DESCRIPTION } = ssr;
+const { render, SITE, VERIFIED: V, OWNER_STATED: O, PENDING_OWNER, FAQ, TITLE, DESCRIPTION } = ssr;
+if (Object.keys(PENDING_OWNER).length) {
+  throw new Error(`PENDING_OWNER is not empty (${Object.keys(PENDING_OWNER).join(", ")}): resolve owner decisions first.`);
+}
 
 // ---- 2. hashed assets
 const hashed = (src, name, ext) => {
@@ -81,6 +84,11 @@ const place = {
   },
   geo: { "@type": "GeoCoordinates", latitude: V.geo.lat, longitude: V.geo.lng, elevation: V.elevationM },
   hasMap: V.mapsUrl,
+  additionalProperty: [
+    { "@type": "PropertyValue", name: "Land area (as per survey)", value: V.area.sqmNum, unitCode: "MTK", unitText: "square metres",
+      description: `${V.area.acresGuntas} = ${V.area.sqm} sq m = ${V.area.sqft} sq ft (${V.area.acres} acres), as per the site survey layout` },
+    { "@type": "PropertyValue", name: "Sale unit", value: "One parcel; not sold in parts" },
+  ],
 };
 const offer = {
   "@type": "Offer",
@@ -88,8 +96,9 @@ const offer = {
   businessFunction: "http://purl.org/goodrelations/v1#Sell",
   url: abs("/#contact"),
   areaServed: { "@id": abs("/#place") },
-  // price / priceCurrency intentionally omitted: owner decision 3 (no public price yet)
-  ...(P.price ? { price: P.price, priceCurrency: "INR" } : {}),
+  price: O.price.amount,          // owner decision 3: ₹2.5 Crore total, negotiable
+  priceCurrency: "INR",
+  description: `Asking price ${O.price.display} for the whole parcel, ${O.price.terms}. ${O.direct}`,
 };
 const graph = {
   "@context": "https://schema.org",
@@ -107,7 +116,7 @@ const graph = {
       datePosted: "2026-05-22",
       dateModified: SITE.updated,
       inLanguage: "en-IN",
-      image: [abs(SITE.ogImage), abs("/media/hero-poster.jpg"), abs("/media/view-poster.jpg")],
+      image: [abs(SITE.ogImage), abs("/media/parcel-still.jpg"), abs("/media/hero-poster.jpg"), abs("/media/view-poster.jpg")],
       isPartOf: { "@id": abs("/#website") },
       contentLocation: place,
       offers: offer,
@@ -116,7 +125,6 @@ const graph = {
     { "@type": "FAQPage", "@id": abs("/#faq"), url: SITE.url, mainEntity: plainFaq },
   ],
 };
-// Seller/contact are deliberately NOT in JSON-LD until owner decisions 5 and 6 are confirmed.
 
 // ---- 4. HTML shell
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -210,33 +218,41 @@ writeFileSync(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF
 </urlset>
 `);
 
-// llms.txt (VERIFIED only; area/plots/price are pending owner decisions, so they're excluded)
+// llms.txt (VERIFIED + explicit owner statements, each labelled)
 const d = V.drive;
 writeFileSync(path.join(DIST, "llms.txt"), `# landincoorg.in
 
-> Single-property listing: valley-view land for sale in Galibeedu, Madikeri taluk, Kodagu (Coorg), Karnataka, India. Updated ${SITE.updatedHuman}.
+> Single-property listing: ${V.area.acres} acres (as per survey) of east-facing, valley-view land for sale as one parcel in Galibeedu, Madikeri taluk, Kodagu (Coorg), Karnataka, India. Asking price ${O.price.display}, ${O.price.terms}. Updated ${SITE.updatedHuman}.
 
-## Verified facts (sources: owner's site survey drawing, Google Maps, official press releases)
+## The land
+- Area: ${V.area.acresGuntas} = ${V.area.sqm} sq m = ${V.area.sqft} sq ft (${V.area.acres} acres), as per the site survey layout (Shashikiran Surveyors, Mysore, 2025). This is the survey figure, not the RTC figure.
+- Sold as ${O.saleUnit} only, not in parts. Room for ${O.roomForHomes} homes. (owner statement)
+- Asking price: ${O.price.display} for the whole parcel, ${O.price.terms}. (owner statement)
+- Access: ${O.road}. (owner statement, not surveyed)
+- ${O.direct} Marketed by ${O.marketedBy}.
 - Location: Galibeedu area, Madikeri, Kodagu, Karnataka. Survey-boundary centre ${V.geo.lat}, ${V.geo.lng} (WGS84): ${V.mapsUrl}
 - Elevation: about ${V.elevationM} m above sea level (survey benchmarks ${V.benchmarks}; spot levels ${V.elevationRange})
 - Aspect: ${V.aspect}-facing; the ground falls towards the east
-- By road (${d.source}): Club Mahindra Madikeri ${d.clubMahindra.km} km; Taj Madikeri Resort & Spa ${d.taj.km} km; Madikeri KSRTC bus stand ${d.madikeri.km} km; The Leela Coorg Forest Sanctuary ${d.leela.km} km; Mangaluru International Airport ${d.mangaluruAirport.km} km; Bengaluru ${d.bengaluru.km} km
-- Nearby hospitality: The Leela Coorg Forest Sanctuary (acquired Mar 2026, unveiled Jul 2026, ${V.sources.leelaUnveil}); Anantara Zanti Coorg Resort, scheduled to open 2028 (${V.sources.anantara})
-- Highway: foundation stone for the 92 km Mysuru–Kushalnagar 4-lane highway laid 12 Mar 2023 (${V.sources.pibHighway}). No official completion date is quoted.
-- Climate (Kodagu district, not site-specific): annual rainfall about 310 cm; temperature 11–28 °C (${V.sources.kodaguTourism}, ${V.sources.kodaguAbout})
 
-## Not yet confirmed (do not quote)
-- Exact land area per the RTC/pahani, whether it is sold as one parcel or as plots, and asking price. These are pending owner confirmation.
+## Distances by road (${d.source})
+- Club Mahindra Madikeri ${d.clubMahindra.km} km; Taj Madikeri Resort & Spa ${d.taj.km} km; Madikeri KSRTC bus stand ${d.madikeri.km} km; The Leela Coorg Forest Sanctuary ${d.leela.km} km; Mangaluru International Airport ${d.mangaluruAirport.km} km; Bengaluru ${d.bengaluru.km} km
+
+## Context (official sources)
+- The Leela Coorg Forest Sanctuary: acquired Mar 2026, unveiled Jul 2026 (${V.sources.leelaUnveil})
+- Anantara Zanti Coorg Resort: scheduled to open 2028 (${V.sources.anantara})
+- Mysuru–Kushalnagar 4-lane highway: foundation stone laid 12 Mar 2023 (${V.sources.pibHighway}). No official completion date is quoted.
+- Kodagu district climate (not site-specific): annual rainfall about 310 cm; temperature 11–28 °C (${V.sources.kodaguTourism}, ${V.sources.kodaguAbout})
 
 ## Contact
-- Enquiry form and direct contact details: ${abs("/#contact")}
+- Email: ${O.contact.email}
+- Phone: ${O.contact.phones.map((p) => p.display).join(", ")}
+- Enquiry form: ${abs("/#contact")}
 
 ## Pages
 - [Property page](${SITE.url}): full listing, location, FAQ, enquiry form
 `);
 
 // ---- 5. report
-const pending = Object.entries(P).filter(([, v]) => v !== null);
 console.log(`built dist/ · index.html ${(statSync(path.join(DIST, "index.html")).size / 1024).toFixed(1)} KiB · js ${(statSync(path.join(DIST, jsUrl)).size / 1024).toFixed(1)} KiB · css ${(statSync(path.join(DIST, cssUrl)).size / 1024).toFixed(1)} KiB`);
-console.warn(`⚠ ${pending.length} values still PENDING_OWNER (visible copy unchanged, excluded from JSON-LD/llms.txt): ${pending.map(([k]) => k).join(", ")}`);
+console.log("PENDING_OWNER: empty ✓");
 rmSync(TMP, { recursive: true, force: true });

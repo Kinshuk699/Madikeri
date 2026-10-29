@@ -1,4 +1,21 @@
-# Owner decisions: these block copy changes
+# Owner decisions: ANSWERED 30 Oct 2026
+
+| # | Answer | Applied as |
+|---|---|---|
+| 1 | One parcel only; "room for two homes" allowed | Plot map and all plot copy removed; single-parcel section with a drone still |
+| 2 | Area per D1: 1 ac 34.8 gu = 7,572.389 sq m = 81,508 sq ft = 1.87 ac, "as per survey"; D2 open | `VERIFIED.area`; title "1.87 Acre…" |
+| 3 | ₹2.5 Crore total, negotiable; no per-unit figure | Specs, meta description, JSON-LD Offer 25000000 INR |
+| 4 | "Galibeedu" in title and headings, "Gaalibeedu" once in the body | unchanged (already applied) |
+| 5 | Offered directly by the owners, marketed by Polaris Infra | Footer kept; "Offered directly by the owners. No brokerage." in contact |
+| 6 | Notifications → anshujsahni322@gmail.com; displayed contact unchanged | Netlify setting (see handoff) |
+| 7 | "40 ft approach road", owner-stated; drop "private" | `OWNER_STATED.road` |
+| 8 | (Netlify ownership): Kinshuk deploys | see handoff |
+
+Still open: D1 vs D2 area (surveyor), RTC revenue village / survey no.
+
+---
+
+## Original questions (29 Oct 2026)
 
 Each item is copy I will not change until it is answered. The fix is one edit in `src/facts.js`, then `npm run build`.
 

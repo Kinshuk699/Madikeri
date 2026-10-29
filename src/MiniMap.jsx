@@ -1,5 +1,5 @@
 import React from "react";
-import { VERIFIED as V, PENDING_OWNER as P } from "./facts.js";
+import { VERIFIED as V } from "./facts.js";
 
 // Marker positions use true bearings from the survey centre (OSM coordinates), at 45 px per km.
 // The Leela and Anantara are not placed: no exact coordinates are published for either.
@@ -45,7 +45,7 @@ function MiniMap() {
           <animate attributeName="opacity" from="0.6" to="0" dur="2.5s" repeatCount="indefinite" />
         </circle>
         <text x="0" y="-22" fill="#1A1A1A" fontSize="13" fontFamily="Playfair Display, serif" fontStyle="italic" textAnchor="middle">Galibeedu</text>
-        <text x="0" y="22" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="middle">{P.areaAcres} ACRES · {V.elevationDisplay.replace("≈", "")} M</text>
+        <text x="0" y="22" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="middle">{V.area.acres} ACRES · {V.elevationDisplay.replace("≈", "")} M</text>
       </g>
 
       {/* surrounding markers */}

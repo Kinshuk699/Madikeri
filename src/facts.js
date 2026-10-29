@@ -4,10 +4,9 @@
  * Every value in VERIFIED has a primary source recorded in docs/FACT-REGISTER.md.
  * VERIFIED values may appear anywhere: visible copy, <title>, meta, JSON-LD, llms.txt and FAQ.
  *
- * PENDING_OWNER values are the site's EXISTING copy for items that depend on an owner decision
- * (docs/OWNER-DECISIONS.md). They are kept in the visible page unchanged, as instructed, but are
- * NEVER emitted into JSON-LD, llms.txt or the FAQ. The build prints a warning while any remain.
- * To resolve one: put the sourced value in VERIFIED, delete it from PENDING_OWNER, and rebuild.
+ * OWNER_STATED values come from explicit owner statements (docs/OWNER-DECISIONS.md, answered
+ * 29 Oct 2026). They are not independently verified and are labelled that way in the register.
+ * PENDING_OWNER must stay empty; the build fails if anything is added to it without a decision.
  */
 
 export const SITE = {
@@ -34,6 +33,18 @@ export const VERIFIED = {
   benchmarks: "TBM1 1,040.438 m · TBM2 1,038.506 m · TBM3 1,044.294 m · TBM4 1,044.073 m",
 
   aspect: "East", // survey spot levels + DEM: the ground falls from west to east
+
+  // D1 = Shashikiran Surveyors layout (Mysore, Feb 2025): "TOTAL SURVEYED AREA = 1 ACRES 34.80 GUNTAS",
+  // area statement 7,572.389 sq m / 81,508.438 sq ft. ALWAYS shown as "as per survey". This is NOT the
+  // RTC figure. D2 (Heritage Surveys, 1 ac 93.02 cents = 7,811.70 sq m) is an open discrepancy in the register.
+  area: {
+    acres: "1.87",
+    acresGuntas: "1 acre 34.8 guntas",
+    sqm: "7,572.389",
+    sqmNum: 7572.389,
+    sqft: "81,508",
+    qualifier: "as per survey",
+  },
 
   // Google Maps driving routes from geo, queried 29 Oct 2026 (OSRM cross-check in the register)
   drive: {
@@ -62,35 +73,45 @@ export const VERIFIED = {
   },
 };
 
-export const PENDING_OWNER = {
-  areaAcres: "1.7",          // decision 2: survey drawings say 1.87 ac (D1) and 1.93 ac (D2); RTC needed
-  areaSqft: "74,052",        // decision 2: D1 81,508; D2 84,084
-  plots: {                   // decision 1: owner says the land cannot be partitioned
-    count: 3, each: "24,684",
-    A: "Northern parcel — valley-facing, terraced approach.",
-    B: "Central crown — highest elevation, widest aspect.",
-    C: "Southern parcel — ridge-line access, secluded.",
-  },
-  roadWidth: "40 ft",        // decision 7: the survey shows a boundary road with no width
-  marketedBy: "Polaris Infra", // decision 5
-  contact: {                 // decision 6
+export const OWNER_STATED = {
+  saleUnit: "one parcel",        // decision 1: sold as ONE parcel only; no part sold separately
+  roomForHomes: "two",           // decision 1: owner permits "room for two homes"
+  price: { amount: 25000000, display: "₹2.5 Crore", short: "₹2.5 Cr", terms: "negotiable" }, // decision 3
+  road: "40 ft approach road",   // decision 7: owner-stated, NOT surveyed (D1 shows a road without width)
+  roadWidth: "40 ft",
+  marketedBy: "Polaris Infra",   // decision 5
+  direct: "Offered directly by the owners. No brokerage.", // decision 5
+  contact: {                     // decision 6: displayed contact unchanged
     email: "polarisinfra322@gmail.com",
     phones: [ { tel: "+919000159792", display: "+91 90001 59792" },
               { tel: "+919963372244", display: "+91 99633 72244" } ],
   },
-  price: null,               // decision 3: no public price today
 };
 
-export const TITLE = `${PENDING_OWNER.areaAcres} Acre Valley-View Land for Sale in Galibeedu, Madikeri, Coorg`;
-export const DESCRIPTION =
-  `Valley-view land for sale in Galibeedu, Madikeri, Coorg (Kodagu), Karnataka. East-facing, about ` +
-  `${VERIFIED.elevationM.toLocaleString("en-IN")} m above sea level, ${VERIFIED.drive.clubMahindra.km} km from Club Mahindra ` +
-  `and ${VERIFIED.drive.taj.km} km from Taj Madikeri by road. Enquire directly.`;
+export const PENDING_OWNER = {};
 
-/* FAQ uses VERIFIED facts only. The same array feeds the visible FAQ section AND the FAQPage JSON-LD,
+const A = VERIFIED.area;
+const O = OWNER_STATED;
+export const TITLE = `${A.acres} Acre Valley-View Land for Sale in Galibeedu, Madikeri, Coorg`;
+export const DESCRIPTION =
+  `${A.acres} acres (as per survey) of east-facing, valley-view land for sale as one parcel in Galibeedu, Madikeri, Coorg. ` +
+  `${O.price.display}, ${O.price.terms}. About ${VERIFIED.elevationM.toLocaleString("en-IN")} m above sea level, ` +
+  `${VERIFIED.drive.clubMahindra.km} km from Club Mahindra and ${VERIFIED.drive.taj.km} km from Taj Madikeri by road.`;
+
+/* FAQ uses VERIFIED facts and explicit owner statements only. The same array feeds the visible FAQ section AND the FAQPage JSON-LD,
    so the two can never drift apart. Answers are plain text plus optional links. */
 const d = VERIFIED.drive;
 export const FAQ = [
+  {
+    q: "How big is the land and what is the asking price?",
+    a: `${A.acresGuntas} as per survey: ${A.sqm} sq m, about ${A.sqft} sq ft (${A.acres} acres). ` +
+       `The asking price is ${O.price.display} for the whole parcel, ${O.price.terms}.`,
+  },
+  {
+    q: "Can I buy part of the land?",
+    a: `No. It is sold as ${O.saleUnit} only. There is room for ${O.roomForHomes} homes on it. Access is by a ${O.road}. ` +
+       `${O.direct}`,
+  },
   {
     q: "Where exactly is this land in Coorg?",
     a: `In the Galibeedu area of Madikeri taluk, Kodagu (Coorg), Karnataka, at ${VERIFIED.geo.display} (centre of the surveyed boundary). ` +
