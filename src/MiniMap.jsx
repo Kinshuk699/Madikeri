@@ -1,5 +1,10 @@
-/* global React */
+import React from "react";
+import { VERIFIED as V } from "./facts.js";
+
+// Marker positions use true bearings from the survey centre (OSM coordinates), at 45 px per km.
+// The Leela and Anantara are not placed: no exact coordinates are published for either.
 function MiniMap() {
+  const d = V.drive;
   // Stylized regional map: hilltop + ringed proximities
   return (
     <svg viewBox="0 0 1400 600" preserveAspectRatio="xMidYMid slice">
@@ -32,24 +37,22 @@ function MiniMap() {
       </g>
 
       {/* property location (center) */}
-      <g transform="translate(700, 310)">
+      <g transform="translate(700, 150)">
         <circle r="60" fill="url(#hill)" />
         <circle r="6" fill="#B8915A" />
         <circle r="6" fill="none" stroke="#B8915A" strokeWidth="0.5" opacity="0.5">
           <animate attributeName="r" from="6" to="28" dur="2.5s" repeatCount="indefinite" />
           <animate attributeName="opacity" from="0.6" to="0" dur="2.5s" repeatCount="indefinite" />
         </circle>
-        <text x="0" y="-22" fill="#1A1A1A" fontSize="13" fontFamily="Playfair Display, serif" fontStyle="italic" textAnchor="middle">Gaalibeedu</text>
-        <text x="0" y="22" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="middle">1.7 ACRES · HILLTOP</text>
+        <text x="0" y="-22" fill="#1A1A1A" fontSize="13" fontFamily="Playfair Display, serif" fontStyle="italic" textAnchor="middle">Galibeedu</text>
+        <text x="0" y="22" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="middle">{V.area.acres} ACRES · {V.elevationDisplay.replace("≈", "")} M</text>
       </g>
 
       {/* surrounding markers */}
       {[
-        { x: 380, y: 240, label: "Taj Madikeri", dist: "12 KM W" },
-        { x: 950, y: 220, label: "Club Mahindra", dist: "10 KM E" },
-        { x: 540, y: 440, label: "The Leela Coorg", dist: "OPENING 2026", soon: true },
-        { x: 1080, y: 420, label: "Anantara Coorg", dist: "OPENING 2028", soon: true },
-        { x: 250, y: 140, label: "Madikeri Town", dist: "8 KM" },
+        { x: 619, y: 402, label: "Taj Madikeri", dist: `${d.taj.km} KM BY ROAD` },
+        { x: 769, y: 424, label: "Club Mahindra", dist: `${d.clubMahindra.km} KM BY ROAD` },
+        { x: 878, y: 523, label: "Madikeri Town", dist: `${d.madikeri.km} KM BY ROAD` },
       ].map((m, i) => (
         <g key={i} transform={`translate(${m.x}, ${m.y})`}>
           <circle r="3" fill={m.soon ? "rgba(184,145,90,0.7)" : "rgba(26,26,26,0.6)"} />
@@ -60,13 +63,13 @@ function MiniMap() {
       ))}
 
       {/* bangalore arrow */}
-      <g transform="translate(80, 80)">
-        <text fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2">BANGALORE</text>
-        <text y="14" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2">6 HRS NE →</text>
+      <g transform="translate(1180, 120)">
+        <text fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2">BENGALURU</text>
+        <text y="14" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2">{d.bengaluru.km} KM · ENE →</text>
       </g>
 
       {/* compass */}
-      <g transform="translate(1320, 80)">
+      <g transform="translate(1320, 60)">
         <circle r="20" fill="none" stroke="rgba(26,26,26,0.2)" />
         <path d="M 0 -16 L 4 6 L 0 2 L -4 6 Z" fill="#1A1A1A" opacity="0.6" />
         <text y="-24" fill="#6F665A" fontSize="9" fontFamily="ui-monospace, monospace" textAnchor="middle" letterSpacing="2">N</text>
@@ -75,4 +78,4 @@ function MiniMap() {
   );
 }
 
-window.MiniMap = MiniMap;
+export default MiniMap;

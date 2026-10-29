@@ -1,0 +1,48 @@
+Hi Kinshuk, the landincoorg.in fixes are ready in PR #1:
+https://github.com/Kinshuk699/Madikeri/pull/1
+
+The site now has a build step, so Netlify has to build it instead of serving the repo as it is. Here's what to do:
+
+1) MERGE
+Review and merge PR #1 into main.
+
+2) NETLIFY SETTINGS (landincoorg.in site → Site configuration)
+- Build & deploy → Build settings:
+    Base directory:     (leave blank)
+    Build command:      npm ci && npm run build
+    Publish directory:  dist
+  (netlify.toml in the repo already says this, but anything typed in the UI overrides it, so make the UI match.)
+- Environment: Node 22 is set in netlify.toml. Nothing else is needed.
+- Forms → enable "Form detection" (if it's off).
+- Forms → Form notifications → Add notification → Email notification →
+    Event: New form submission · Form: inquiry · Email: anshujsahni322@gmail.com
+
+3) DEPLOY
+- If the site is linked to the GitHub repo: merging to main triggers the deploy. Watch it under Deploys. The log should end with "built dist/ … PENDING_OWNER: empty ✓".
+- If you deploy by hand (CLI or drag-and-drop): pull main, then
+      npm ci && npm run build
+  and deploy the **dist/** folder:  npx netlify-cli deploy --prod --dir dist
+  Do NOT upload the repo root. That would publish the raw source files.
+
+4) FIVE CHECKS ON https://landincoorg.in AFTER THE DEPLOY
+  1. Content is in the raw HTML:
+       curl -s -A "GPTBot" https://landincoorg.in/ | grep -o -e "₹2.5 Crore" -e "81,508" -e "12.4964" -e "polarisinfra322@gmail.com" | sort -u
+     → all four strings should print.
+  2. Title and structured data:
+       curl -s https://landincoorg.in/ | grep -o "<title>[^<]*</title>"
+     → "1.87 Acre Valley-View Land for Sale in Galibeedu, Madikeri, Coorg"
+       curl -s https://landincoorg.in/ | grep -o '"price":25000000,"priceCurrency":"INR"'
+     → one match.
+  3. Old URLs redirect, junk is gone:
+       curl -sI https://landincoorg.in/gaalibeedu | head -3        → 301, Location: https://landincoorg.in/
+       curl -sI https://landincoorg.in/_reset.html | head -1       → 404
+       curl -sI https://landincoorg.in/uploads/DJI_0008.mp4 | head -1 → 404
+  4. Crawl files exist:
+       curl -s -o /dev/null -w "%{http_code}\n" https://landincoorg.in/robots.txt   → 200
+       (same for /sitemap.xml and /llms.txt → 200)
+     and the homepage has no noindex:  curl -sI https://landincoorg.in/ | grep -i x-robots  → nothing printed
+  5. Form → email: Netlify → Forms should list a form called "inquiry". Submit one real enquiry from your phone on landincoorg.in. It should show under Forms (check the Spam tab too) AND arrive at anshujsahni322@gmail.com within a few minutes.
+
+If any check fails, send me the command output and I'll take it from there.
+
+Thanks!
