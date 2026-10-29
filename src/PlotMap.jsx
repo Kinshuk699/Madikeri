@@ -50,7 +50,7 @@ function PlotMap({ active, onSelect }) {
         strokeDasharray="4 4"
         fill="none"
       />
-      <text x="640" y="535" fill="rgba(184,145,90,0.7)" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="end">PRIVATE ROAD · 40FT</text>
+      <text x="640" y="535" fill="rgba(184,145,90,0.7)" fontSize="9" fontFamily="ui-monospace, monospace" letterSpacing="2" textAnchor="end">PRIVATE ROAD · {P.roadWidth.replace(" ", "").toUpperCase()}</text>
 
       {/* plot polygons */}
       {plots.map(p => {
