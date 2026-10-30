@@ -85,8 +85,13 @@ export const OWNER_STATED = {
     email: "polarisinfra322@gmail.com",
     phones: [ { tel: "+919000159792", display: "+91 90001 59792" },
               { tel: "+919963372244", display: "+91 99633 72244" } ],
+    // owner instruction 30 Oct 2026: WhatsApp click-to-chat on +91 90001 59792 with this prefilled text
+    whatsapp: { number: "919000159792", display: "+91 90001 59792",
+                text: "Hi, I'm interested in the 1.87-acre land in Galibeedu" },
   },
 };
+export const WHATSAPP_URL =
+  `https://wa.me/${OWNER_STATED.contact.whatsapp.number}?text=${encodeURIComponent(OWNER_STATED.contact.whatsapp.text)}`;
 
 export const PENDING_OWNER = {};
 
