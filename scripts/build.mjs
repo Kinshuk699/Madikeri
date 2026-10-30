@@ -12,10 +12,14 @@ import { mkdirSync, rmSync, cpSync, writeFileSync, readFileSync, statSync } from
 import { createHash } from "node:crypto";
 import { pathToFileURL } from "node:url";
 import path from "node:path";
+import { buildGuides } from "./guides.mjs";
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), "..");
 const DIST = path.join(ROOT, "dist");
 const TMP = path.join(ROOT, ".build");
+// Draft guides render only outside production (local builds and Netlify deploy previews), always noindex there.
+const PRODUCTION = process.env.CONTEXT === "production";
+const INCLUDE_DRAFTS = !PRODUCTION && process.env.GUIDES_DRAFTS !== "0";
 rmSync(DIST, { recursive: true, force: true });
 rmSync(TMP, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
@@ -206,6 +210,9 @@ writeFileSync(path.join(DIST, "robots.txt"),
   bots.map((b) => `User-agent: ${b}\nAllow: /\n`).join("\n") +
   `\nUser-agent: *\nAllow: /\nDisallow: /thanks/\nDisallow: /netlify-forms.html\n\nSitemap: ${abs("/sitemap.xml")}\n`);
 
+// ---- guides (/guides/ and /guides/<slug>/)
+const guides = buildGuides({ root: ROOT, dist: DIST, site: SITE, cssUrl, includeDrafts: INCLUDE_DRAFTS });
+
 // sitemap.xml
 writeFileSync(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -215,8 +222,14 @@ writeFileSync(path.join(DIST, "sitemap.xml"), `<?xml version="1.0" encoding="UTF
     <image:image><image:loc>${abs(SITE.ogImage)}</image:loc></image:image>
     <image:image><image:loc>${abs("/media/hero-poster.jpg")}</image:loc></image:image>
   </url>
-</urlset>
+${guides.sitemapEntries.map((e) => `  <url>\n    <loc>${e.loc}</loc>\n    <lastmod>${e.lastmod}</lastmod>\n  </url>\n`).join("")}</urlset>
 `);
+
+// IndexNow manifest: every indexable URL with its lastmod. The post-deploy plugin
+// (plugins/indexnow) diffs this against the previous production build and pings only changed URLs.
+writeFileSync(path.join(DIST, "indexnow-manifest.json"), JSON.stringify({
+  urls: [{ loc: SITE.url, lastmod: SITE.updated }, ...guides.sitemapEntries],
+}, null, 2));
 
 // llms.txt (VERIFIED + explicit owner statements, each labelled)
 const d = V.drive;
@@ -250,9 +263,11 @@ writeFileSync(path.join(DIST, "llms.txt"), `# landincoorg.in
 
 ## Pages
 - [Property page](${SITE.url}): full listing, location, FAQ, enquiry form
-`);
+${guides.llms}`);
 
 // ---- 5. report
 console.log(`built dist/ · index.html ${(statSync(path.join(DIST, "index.html")).size / 1024).toFixed(1)} KiB · js ${(statSync(path.join(DIST, jsUrl)).size / 1024).toFixed(1)} KiB · css ${(statSync(path.join(DIST, cssUrl)).size / 1024).toFixed(1)} KiB`);
 console.log("PENDING_OWNER: empty ✓");
+console.log(`guides: ${guides.live.length} built (${guides.live.map((g) => g.slug + (g.status === "approved" ? "" : " [draft]")).join(", ") || "none"})` +
+  (guides.skipped.length ? ` · held back as drafts: ${guides.skipped.join(", ")}` : "") + ` · context=${process.env.CONTEXT || "local"}`);
 rmSync(TMP, { recursive: true, force: true });

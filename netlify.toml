@@ -7,6 +7,20 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Post-deploy IndexNow ping of changed URLs (production only). See plugins/indexnow.
+[[plugins]]
+  package = "./plugins/indexnow"
+
+[[headers]]
+  for = "/indexnow-manifest.json"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+    Cache-Control = "no-cache"
+[[headers]]
+  for = "/855c7e9944ffa43349baf16d26676c25.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
+
 # Old property URL -> canonical root (301)
 [[redirects]]
   from = "/gaalibeedu"
