@@ -158,7 +158,8 @@ const head = `
   <meta name="twitter:title" content="${esc(TITLE)}" />
   <meta name="twitter:description" content="${esc(DESCRIPTION)}" />
   <meta name="twitter:image" content="${abs(SITE.ogImage)}" />
-  <meta name="theme-color" content="#F5F0E8" />
+  <meta name="theme-color" content="#F5F0E8" />${SITE.googleSiteVerification
+    ? `\n  <meta name="google-site-verification" content="${esc(SITE.googleSiteVerification)}" />` : ""}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM summary" />
   <link rel="preload" as="image" href="/media/hero-poster.jpg" fetchpriority="high" />

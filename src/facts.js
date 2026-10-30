@@ -16,6 +16,9 @@ export const SITE = {
   updated: "2026-10-29",
   updatedHuman: "October 2026",
   ogImage: "/media/og-1200x630.jpg",
+  // Google Search Console URL-prefix verification (https://landincoorg.in/). Paste ONLY the content="..."
+  // value from the <meta name="google-site-verification"> tag. Empty string = no tag is rendered.
+  googleSiteVerification: "",
 };
 
 export const VERIFIED = {
