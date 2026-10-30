@@ -1,9 +1,6 @@
 # Guides in the content map that are not written yet. Links to these slugs render as plain
 # text until the guide file exists and is built. One slug per line.
-due-diligence-checklist-coorg
 convert-agricultural-land-kodagu
-land-prices-madikeri
-galibeedu-area-guide
 stamp-duty-registration-karnataka-land
 kodagu-landslide-risk-land
 nri-buy-land-coorg
