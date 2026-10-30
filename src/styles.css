@@ -1184,6 +1184,59 @@ html:not(.js) .reveal { opacity: 1; transform: none; }
 .thanks h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(40px, 6vw, 72px); margin: 0 0 16px; }
 .thanks a { color: var(--accent); }
 
+/* ===== guides (/guides/ and /guides/<slug>/) : same tokens as the property page ===== */
+.g-page { background: var(--cream); }
+.g-topbar { position: sticky; }
+.g-topbar a.mark, .g-footer a.mark { color: inherit; text-decoration: none; }
+.g-footer a { color: inherit; text-decoration: none; }
+.g-footer a:hover { color: var(--accent); }
+.g-main { max-width: 760px; margin: 0 auto; padding: 48px 24px 24px; }
+.g-crumbs ol { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 40px;
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
+.g-crumbs li + li::before { content: "/"; margin-right: 8px; opacity: 0.5; }
+.g-crumbs a { color: inherit; text-decoration: none; }
+.g-crumbs a:hover { color: var(--accent); }
+.g-updated { font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.g-article h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(36px, 5.4vw, 56px); line-height: 1.08;
+  letter-spacing: -0.01em; margin: 0 0 20px; }
+.g-author { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--charcoal); margin: 0 0 8px; }
+.g-pillar { font-size: 14px; color: var(--muted); margin: 0 0 8px; }
+.g-article > header { border-bottom: 1px solid var(--hairline); padding-bottom: 28px; margin-bottom: 32px; }
+.g-article p, .g-article li { font-size: 17px; line-height: 1.7; }
+.g-article h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(26px, 3.2vw, 34px); line-height: 1.2; margin: 56px 0 16px; }
+.g-article h3 { font-family: var(--serif); font-weight: 500; font-size: 21px; margin: 32px 0 10px; }
+.g-article a { color: var(--gold-deep); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.g-article a:hover { color: var(--stone); }
+.g-article strong { font-weight: 600; }
+.g-article blockquote { margin: 24px 0; padding: 4px 0 4px 20px; border-left: 2px solid var(--gold); color: var(--charcoal); }
+.g-table { overflow-x: auto; margin: 24px 0; -webkit-overflow-scrolling: touch; }
+.g-table table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.5; }
+.g-table th, .g-table td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--hairline); }
+.g-table th { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.g-faq { margin-top: 56px; border-top: 1px solid var(--hairline); }
+.g-faq details { border-bottom: 1px solid var(--hairline); padding: 4px 0; }
+.g-faq summary { list-style: none; cursor: pointer; }
+.g-faq summary::-webkit-details-marker { display: none; }
+.g-faq summary h3 { display: inline; }
+.g-related { margin-top: 56px; padding: 24px 28px; background: var(--cream-deep); }
+.g-related h2 { margin-top: 0; font-size: 22px; }
+.g-related ul { margin: 0; padding-left: 18px; }
+.g-index { list-style: none; padding: 0; margin: 32px 0 0; }
+.g-index li { border-top: 1px solid var(--hairline); padding: 24px 0; }
+.g-index li > a { font-family: var(--serif); font-size: 24px; text-decoration: none; color: var(--stone); }
+.g-index li > a:hover { color: var(--accent); }
+.g-index li p { margin: 8px 0; font-size: 15px; color: var(--charcoal); }
+.g-footer { margin-top: 64px; }
+@media (max-width: 900px) {
+  .g-topbar { padding: 16px 20px; }
+  .g-topbar nav { gap: 18px; }
+  .g-topbar .lang { display: none; }
+  .g-main { padding: 32px 20px 16px; }
+  .g-article p, .g-article li { font-size: 16px; }
+  .g-footer { grid-template-columns: 1fr; padding: 32px 20px; }
+  .g-footer .center, .g-footer .right { text-align: left; }
+}
+
 /* Single-parcel drone still (replaces the old plot map) */
 .plot-map-wrap .parcel-still {
   position: absolute; inset: 0; width: 100%; height: 100%;

@@ -133,6 +133,7 @@ function TopBar() {
         <a href="#view" onClick={go("view")}>The View</a>
         <a href="#location" onClick={go("location")}>Location</a>
         <a href="#faq" onClick={go("faq")}>FAQ</a>
+        <a href="/guides/">Guides</a>
         <a href="#contact" onClick={go("contact")}>Inquire</a>
       </nav>
       <div className="lang">ಗಾಳಿಬೀಡು</div>
@@ -562,7 +563,8 @@ function Contact() {
         </div>
         <div className="center">
           Marketed by {O.marketedBy} · Madikeri<br/>
-          <span style={{opacity: 0.6}}>© 2026 · All enquiries private · Updated {SITE.updatedHuman}</span>
+          <span style={{opacity: 0.6}}>© 2026 · All enquiries private · Updated {SITE.updatedHuman}</span><br/>
+          <a href="/guides/" style={{color: "inherit"}}>Guides to buying land in Coorg</a>
         </div>
         <div className="right">
           A {A.acres}-acre hilltop · Coorg, Karnataka<br/>
