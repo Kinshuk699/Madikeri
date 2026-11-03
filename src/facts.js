@@ -27,9 +27,6 @@ export const VERIFIED = {
   // Survey grid (Shashikiran Surveyors layout, Feb 2025) E 576250–576375 / N 1381425–1381675,
   // converted with pyproj from EPSG:32643 (UTM 43N, WGS84). The UTM zone is an assumption,
   // backed by the Copernicus DEM matching the survey levels.
-  geo: { lat: 12.496429, lng: 75.702316, display: "12.4964° N · 75.7023° E" },
-  mapsUrl: "https://www.google.com/maps/search/?api=1&query=12.496429,75.702316",
-
   // Survey benchmarks TBM1 1,040.438 · TBM2 1,038.506 · TBM3 1,044.294 · TBM4 1,044.073 m.
   // Spot levels 1,037.4–1,056.0 m. Copernicus GLO-30 DEM 1,025–1,055 m.
   elevationM: 1040,
@@ -119,12 +116,6 @@ export const FAQ = [
     q: "Can I buy part of the land?",
     a: `No. It is sold as ${O.saleUnit} only. It is agricultural land, so you convert it for non-agricultural use before building. Access is by a ${O.road}. ` +
        `${O.direct}`,
-  },
-  {
-    q: "Where exactly is this land in Coorg?",
-    a: `In the Galibeedu area of Madikeri taluk, Kodagu (Coorg), Karnataka, at ${VERIFIED.geo.display} (centre of the surveyed boundary). ` +
-       `It is ${d.madikeri.km} km by road from the Madikeri KSRTC bus stand, via ${d.via}.`,
-    links: [{ href: VERIFIED.mapsUrl, text: "Open the coordinates in Google Maps" }],
   },
   {
     q: "What is the elevation of the land?",

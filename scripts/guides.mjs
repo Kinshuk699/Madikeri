@@ -19,7 +19,7 @@ import { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 
 import path from "node:path";
 import { marked } from "marked";
 
-const AUTHOR_LINE = "Written by Ansh, who owns and is selling land in Galibeedu.";
+// Article + FAQPage + breadcrumb schema for every guide.
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const human = (iso) => { const [y, m] = iso.split("-"); return `${MONTHS[Number(m) - 1]} ${y}`; };
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -150,7 +150,6 @@ ${footer}
 </html>
 `;
 
-  const author = { "@type": "Person", name: "Ansh", description: "Owns and is selling land in Galibeedu, Madikeri" };
   const website = { "@type": "WebSite", "@id": abs("/#website"), url: abs("/"), name: "landincoorg.in" };
 
   for (const g of live) {
@@ -176,7 +175,6 @@ ${footer}
     <header>
       <p class="g-updated">Updated <time datetime="${g.updated}">${human(g.updated)}</time></p>
       <h1>${esc(g.h1)}</h1>
-      <p class="g-author">${esc(AUTHOR_LINE)}</p>
       ${pillarHtml}
     </header>
     ${marked.parse(beforeFaq, { renderer })}
@@ -188,7 +186,7 @@ ${footer}
     const jsonld = { "@context": "https://schema.org", "@graph": [
       website,
       { "@type": "Article", "@id": url + "#article", headline: g.h1, description: g.description, inLanguage: "en-IN",
-        datePublished: g.published, dateModified: g.updated, author, publisher: author,
+        datePublished: g.published, dateModified: g.updated,
         mainEntityOfPage: url, isPartOf: { "@id": abs("/#website") }, image: abs(site.ogImage) },
       { "@type": "BreadcrumbList", itemListElement: crumbs.map((c, i) => ({ "@type": "ListItem", position: i + 1, name: c.name, item: c.url })) },
       { "@type": "FAQPage", "@id": url + "#faqs", url, mainEntity: g.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.aText } })) },
@@ -206,7 +204,7 @@ ${footer}
   <article class="g-article">
     <header><p class="g-updated">Updated <time datetime="${idxUpdated}">${human(idxUpdated)}</time></p>
     <h1>Guides to buying land in Coorg</h1>
-    <p class="g-author">${esc(AUTHOR_LINE)}</p></header>
+    </header>
     <p>Plain-English guides to buying land in Kodagu (Coorg), with links to the Acts, government portals and listings each one relies on. Where something could not be verified, the guide says so.</p>
     ${live.length ? "" : "<p>The first guides are being reviewed and will appear here soon.</p>"}
     <ul class="g-index">${ordered.map((g) => `<li><a href="/guides/${g.slug}/">${esc(g.h1)}</a><p>${esc(g.description)}</p><span class="g-updated">Updated ${human(g.updated)}</span></li>`).join("")}</ul>
