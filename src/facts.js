@@ -80,7 +80,6 @@ export const VERIFIED = {
 
 export const OWNER_STATED = {
   saleUnit: "one parcel",        // decision 1: sold as ONE parcel only; no part sold separately
-  roomForHomes: "two",           // decision 1: owner permits "room for two homes"
   road: "40 ft approach road",   // decision 7: owner-stated, NOT surveyed (D1 shows a road without width)
   roadWidth: "40 ft",
   marketedBy: "Polaris Infra",   // decision 5
@@ -114,11 +113,11 @@ export const FAQ = [
   {
     q: "How big is the land?",
     a: `${A.acresGuntas} as per survey: ${A.sqm} sq m, about ${A.sqft} sq ft (${A.acres} acres). ` +
-       `It is sold as ${O.saleUnit}, with room for ${O.roomForHomes} homes.`,
+       `It is sold as ${O.saleUnit}, as agricultural land.`,
   },
   {
     q: "Can I buy part of the land?",
-    a: `No. It is sold as ${O.saleUnit} only. There is room for ${O.roomForHomes} homes on it. Access is by a ${O.road}. ` +
+    a: `No. It is sold as ${O.saleUnit} only. It is agricultural land, so you convert it for non-agricultural use before building. Access is by a ${O.road}. ` +
        `${O.direct}`,
   },
   {

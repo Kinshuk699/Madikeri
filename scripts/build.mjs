@@ -230,7 +230,7 @@ writeFileSync(path.join(DIST, "llms.txt"), `# landincoorg.in
 
 ## The land
 - Area: ${V.area.acresGuntas} = ${V.area.sqm} sq m = ${V.area.sqft} sq ft (${V.area.acres} acres), as per the site survey layout (Shashikiran Surveyors, Mysore, 2025). This is the survey figure, not the RTC figure.
-- Sold as ${O.saleUnit} only, not in parts. Room for ${O.roomForHomes} homes. (owner statement)
+- Sold as ${O.saleUnit} only, not in parts. Agricultural land, converted for building before use. (owner statement)
 - Access: ${O.road}. (owner statement, not surveyed)
 - ${O.direct} Marketed by ${O.marketedBy}.
 - Location: Galibeedu area, Madikeri, Kodagu, Karnataka. Survey-boundary centre ${V.geo.lat}, ${V.geo.lng} (WGS84): ${V.mapsUrl}
