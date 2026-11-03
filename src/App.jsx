@@ -336,7 +336,7 @@ function Property() {
         </div>
 
         <div className="together reveal d2">
-          <div className="lhs">Offered as one parcel. Agricultural land; convert before building.</div>
+          <div className="lhs">Offered as one parcel. Agricultural land; the buyer converts it before building.</div>
         </div>
       </div>
     </section>
