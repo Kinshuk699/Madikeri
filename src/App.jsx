@@ -309,7 +309,7 @@ function Property() {
         </div>
 
         <div className="plot-list reveal d1">
-          <h3>One parcel, with room for {O.roomForHomes} homes.</h3>
+          <h3>One parcel, sold as agricultural land.</h3>
           <p className="sub">{A.acresGuntas} as per survey — about {A.sqft} square feet of east-facing ridge, sold as a single parcel.</p>
 
           {specs.map((r) => (
@@ -336,7 +336,7 @@ function Property() {
         </div>
 
         <div className="together reveal d2">
-          <div className="lhs">Offered as one parcel. Room for {O.roomForHomes} homes.</div>
+          <div className="lhs">Offered as one parcel. Agricultural land; the buyer converts it before building.</div>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@
 
 | # | Answer | Applied as |
 |---|---|---|
-| 1 | One parcel only; "room for two homes" allowed | Plot map and all plot copy removed; single-parcel section with a drone still |
+| 1 | One parcel only; presented as agricultural land the buyer converts for non-agricultural use before building (revised 3 Nov 2026) | Plot map and all plot copy removed; single-parcel section with a drone still |
 | 2 | Area per D1: 1 ac 34.8 gu = 7,572.389 sq m = 81,508 sq ft = 1.87 ac, "as per survey"; D2 open | `VERIFIED.area`; title "1.87 Acre…" |
 | 3 | No asking price shown on the site (reversed 3 Nov 2026) | Price removed from specs, meta description, FAQ, JSON-LD Offer and llms.txt |
 | 4 | "Galibeedu" in title and headings, "Gaalibeedu" once in the body | unchanged (already applied) |

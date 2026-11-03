@@ -20,7 +20,7 @@ Compiled 29 Oct 2026 (IST). Owner decisions applied 30 Oct 2026; see OWNER-DECIS
 |---|---|---|---|---|---|
 | 1 | Total area | 1.7 acres | **D1** (Shashikiran Surveyors layout): "TOTAL SURVEYED AREA = 1 ACRES 34.80 GUNTAS". RTC not available. | **1.87 ac (1 acre 34.8 guntas), always worded "as per survey"**. Never presented as the RTC figure. **Open discrepancy:** D2 (Heritage Surveys) says 1 ac 93.02 cents = 1.93 ac; owner is checking with the surveyor. | **corrected** (owner decision 2, 29 Oct 2026) |
 | 2 | Area in sq ft | 74,052 | **D1** area statement: 7,572.389 sq m / 81,508.438 sq ft | **81,508 sq ft / 7,572.389 sq m, as per survey** (D2's 84,084 sq ft is an open discrepancy) | **corrected** (decision 2) |
-| 3 | Three equal plots, 24,684 sq ft each, "available individually" | 3 × 24,684 | Owner statement (decision 1, 29 Oct 2026): sold as ONE parcel only | One parcel. "Room for two homes" is permitted wording (owner). No part is sold separately. | **removed** (plot map, plot list, footer, hero line, "held apart", "held individually") |
+| 3 | Three equal plots, 24,684 sq ft each, "available individually" | 3 × 24,684 | Owner statement (decision 1, 29 Oct 2026): sold as ONE parcel only | One parcel. Presented as agricultural land the buyer converts for non-agricultural use before building (owner, 3 Nov 2026). No part is sold separately. | **removed** (plot map, plot list, footer, hero line, "held apart", "held individually") |
 | 4 | Title / revenue village | "Gaalibeedu" | D1 title block "Baribellachchu, Madikeri"; D2 "Galibidu, Madikeri". RTC not available. | Unresolved: the RTC shows the revenue village and survey number | **needs owner** |
 | 5 | Coordinates | N 12.43° E 75.74° | D1 grid converted with pyproj, **assuming UTM 43N / WGS84 (EPSG:32643)** | Survey-extent centre **12.49643° N, 75.70232° E**. Corners 12.49530–12.49756 N, 75.70174–75.70289 E. The site's point is **8.4 km away** (south-east, near Madikeri town). | **corrected** |
 | 5a | Check on the UTM assumption | — | Copernicus GLO-30 DEM sampled on the D1 grid | DEM 1,025–1,055 m (mean 1,043.7) against D1 levels 1,037.4–1,056.0. Matches. The drawing's "To Mukkodlu" (NE) and "To Kalakeri Nidugane" (S) labels are also on the correct sides of this point (OSM). | supports #5 |
@@ -47,7 +47,7 @@ Compiled 29 Oct 2026 (IST). Owner decisions applied 30 Oct 2026; see OWNER-DECIS
 ### What I could NOT verify
 - **RTC / pahani, EC, mutation, survey number, khata:** not on this machine. The site area is the D1 *survey* figure, not an RTC figure. Revenue village (row 4) is still unresolved.
 - **D1 vs D2 area:** unresolved (1.87 vs 1.93 ac). The owner is checking with the surveyor.
-- **Price, one-parcel sale, room for two homes, 40 ft road:** owner statements, not independently verified.
+- **One-parcel sale, agricultural land (convert before building), 40 ft road:** owner statements, not independently verified.
 - **The basis of the UTM assumption:** D1 doesn't say which projection it uses. EPSG:32643 is inferred from the grid values and is backed up by the DEM match and the place-name check, but the surveyor (Shashikiran Surveyors, Ph. 9986932559) should confirm it.
 - **Mysuru–Kushalnagar completion date:** I found no NHAI or PIB source, so no date is claimed.
 - **Anantara Zanti Coorg exact site:** not published.
