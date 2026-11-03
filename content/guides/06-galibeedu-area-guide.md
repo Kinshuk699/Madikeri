@@ -10,7 +10,7 @@ related: how-to-buy-land-in-coorg, land-prices-madikeri, due-diligence-checklist
 ---
 Galibeedu is a hill area in Madikeri taluk, Kodagu (Coorg), about 13.7 km by road from Madikeri town. Club Mahindra Madikeri is 9.7 km away and Taj Madikeri Resort & Spa is 13.1 km away.
 
-Distances were measured on Google Maps on 29 October 2026 from a point in Galibeedu (12.4964° N, 75.7023° E).
+Distances were measured on Google Maps on 29 October 2026 from a point in Galibeedu.
 
 ## How far is Galibeedu from…
 

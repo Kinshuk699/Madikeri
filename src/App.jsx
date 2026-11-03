@@ -217,7 +217,6 @@ function Hero({ variant }) {
             <span className="scroll-line" />
           </div>
           <div className="col right">
-            <a href={V.mapsUrl} target="_blank" rel="noopener" style={{ color: "inherit", textDecoration: "none" }}>{V.geo.display}</a>
             <span className="v">One parcel, one ridge</span>
           </div>
         </div>
@@ -433,7 +432,7 @@ function Location() {
         <div className="mini-map reveal">
           <MiniMap />
         </div>
-        <p className="map-note">Distances: {d.source}, from {V.geo.display}. <a href={V.mapsUrl} target="_blank" rel="noopener">Open in Google Maps</a>.</p>
+        <p className="map-note">Distances: {d.source}.</p>
       </div>
     </section>
   );

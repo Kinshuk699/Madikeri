@@ -23,7 +23,6 @@ for (const s of slugs) {
   ok(faq.mainEntity.length >= 4 && faq.mainEntity.length <= 6, `${tag} FAQ count ${faq.mainEntity.length}`);
   ok(JSON.stringify(visibleQs) === JSON.stringify(faq.mainEntity.map((q) => q.name)), `${tag} visible FAQ != JSON-LD FAQ`);
   ok(/<p class="g-updated">Updated <time datetime="\d{4}-\d{2}-\d{2}">[A-Z][a-z]+ \d{4}<\/time><\/p>/.test(h), `${tag} no Updated line`);
-  ok(h.includes("Written by Ansh, who owns and is selling land in Galibeedu."), `${tag} no author line`);
   ok(h.includes(`<link rel="canonical" href="https://landincoorg.in/guides/${s}/" />`), `${tag} canonical`);
   ok(/<nav class="g-crumbs"/.test(h), `${tag} no breadcrumb`);
   const art = h.slice(h.indexOf('<article'), h.indexOf('</article>'));

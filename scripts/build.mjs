@@ -86,8 +86,6 @@ const place = {
     postalCode: "571201",
     addressCountry: "IN",
   },
-  geo: { "@type": "GeoCoordinates", latitude: V.geo.lat, longitude: V.geo.lng, elevation: V.elevationM },
-  hasMap: V.mapsUrl,
   additionalProperty: [
     { "@type": "PropertyValue", name: "Land area (as per survey)", value: V.area.sqmNum, unitCode: "MTK", unitText: "square metres",
       description: `${V.area.acresGuntas} = ${V.area.sqm} sq m = ${V.area.sqft} sq ft (${V.area.acres} acres), as per the site survey layout` },
@@ -131,8 +129,6 @@ const head = `
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="geo.region" content="IN-KA" />
   <meta name="geo.placename" content="Galibeedu, Madikeri, Kodagu" />
-  <meta name="geo.position" content="${V.geo.lat};${V.geo.lng}" />
-  <meta name="ICBM" content="${V.geo.lat}, ${V.geo.lng}" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="landincoorg.in" />
   <meta property="og:locale" content="en_IN" />
@@ -233,7 +229,7 @@ writeFileSync(path.join(DIST, "llms.txt"), `# landincoorg.in
 - Sold as ${O.saleUnit} only, not in parts. Agricultural land, not yet converted. The buyer converts it before building. (owner statement)
 - Access: ${O.road}. (owner statement, not surveyed)
 - ${O.direct} Marketed by ${O.marketedBy}.
-- Location: Galibeedu area, Madikeri, Kodagu, Karnataka. Survey-boundary centre ${V.geo.lat}, ${V.geo.lng} (WGS84): ${V.mapsUrl}
+- Location: Galibeedu area, Madikeri, Kodagu, Karnataka.
 - Elevation: about ${V.elevationM} m above sea level (survey benchmarks ${V.benchmarks}; spot levels ${V.elevationRange})
 - Aspect: ${V.aspect}-facing; the ground falls towards the east
 
