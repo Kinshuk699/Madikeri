@@ -81,7 +81,6 @@ export const VERIFIED = {
 export const OWNER_STATED = {
   saleUnit: "one parcel",        // decision 1: sold as ONE parcel only; no part sold separately
   roomForHomes: "two",           // decision 1: owner permits "room for two homes"
-  price: { amount: 25000000, display: "₹2.5 Crore", short: "₹2.5 Cr", terms: "negotiable" }, // decision 3
   road: "40 ft approach road",   // decision 7: owner-stated, NOT surveyed (D1 shows a road without width)
   roadWidth: "40 ft",
   marketedBy: "Polaris Infra",   // decision 5
@@ -105,7 +104,7 @@ const O = OWNER_STATED;
 export const TITLE = `${A.acres} Acre Valley-View Land for Sale in Galibeedu, Madikeri, Coorg`;
 export const DESCRIPTION =
   `${A.acres} acres (as per survey) of east-facing, valley-view land for sale as one parcel in Galibeedu, Madikeri, Coorg. ` +
-  `${O.price.display}, ${O.price.terms}. About ${VERIFIED.elevationM.toLocaleString("en-IN")} m above sea level, ` +
+  `About ${VERIFIED.elevationM.toLocaleString("en-IN")} m above sea level, ` +
   `${VERIFIED.drive.clubMahindra.km} km from Club Mahindra and ${VERIFIED.drive.taj.km} km from Taj Madikeri by road.`;
 
 /* FAQ uses VERIFIED facts and explicit owner statements only. The same array feeds the visible FAQ section AND the FAQPage JSON-LD,
@@ -113,9 +112,9 @@ export const DESCRIPTION =
 const d = VERIFIED.drive;
 export const FAQ = [
   {
-    q: "How big is the land and what is the asking price?",
+    q: "How big is the land?",
     a: `${A.acresGuntas} as per survey: ${A.sqm} sq m, about ${A.sqft} sq ft (${A.acres} acres). ` +
-       `The asking price is ${O.price.display} for the whole parcel, ${O.price.terms}.`,
+       `It is sold as ${O.saleUnit}, with room for ${O.roomForHomes} homes.`,
   },
   {
     q: "Can I buy part of the land?",
