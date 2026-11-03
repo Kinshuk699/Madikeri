@@ -5,7 +5,7 @@ h1: Can a non-farmer buy agricultural land in Karnataka?
 slug: non-farmer-buy-agricultural-land-karnataka
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, due-diligence-checklist-coorg, convert-agricultural-land-kodagu, nri-buy-land-coorg
 ---
 Yes. Since 2020, anyone living in India can buy agricultural land in Karnataka, whether they farm or earn a salary. Before that, people with high non-farm income were barred from buying it.

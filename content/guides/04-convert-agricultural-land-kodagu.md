@@ -5,7 +5,7 @@ h1: Converting agricultural land in Kodagu
 slug: convert-agricultural-land-kodagu
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, due-diligence-checklist-coorg, stamp-duty-registration-karnataka-land
 ---
 To build a house on agricultural land in Kodagu, you first need it converted for non-agricultural use. You apply to the Deputy Commissioner of Kodagu, and since 2023 the law sets short deadlines for a decision.

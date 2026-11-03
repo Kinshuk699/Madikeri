@@ -5,7 +5,7 @@ h1: Stamp duty and registration for land in Karnataka
 slug: stamp-duty-registration-karnataka-land
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, land-prices-madikeri, due-diligence-checklist-coorg
 ---
 On a land sale deed in Karnataka, stamp duty is 5% of the market value plus a surcharge and additional duty, and the registration fee is 2%. These are on top of the price you agree with the seller.

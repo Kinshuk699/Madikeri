@@ -5,11 +5,11 @@ h1: How to buy land in Coorg
 slug: how-to-buy-land-in-coorg
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 pillar: true
 related: non-farmer-buy-agricultural-land-karnataka, due-diligence-checklist-coorg, convert-agricultural-land-kodagu, land-prices-madikeri, stamp-duty-registration-karnataka-land, nri-buy-land-coorg
 ---
-Buying land in Coorg usually takes six steps: shortlist, visit, check the land records, agree terms in writing, register the sale deed at the Sub-Registrar's office, and get the land records changed into your name. Since 2020, anyone living in India can buy agricultural land in Karnataka, whether or not they farm.
+Buying land in Coorg usually takes seven steps: shortlist, visit, check the land records, check whether the land is converted, agree terms in writing, register the sale deed at the Sub-Registrar's office, and get the land records changed into your name. Since 2020, anyone living in India can buy agricultural land in Karnataka, whether or not they farm.
 
 ## The steps
 

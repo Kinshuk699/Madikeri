@@ -5,7 +5,7 @@ h1: Land prices around Madikeri
 slug: land-prices-madikeri
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, galibeedu-area-guide, due-diligence-checklist-coorg
 ---
 Asking prices for land around Madikeri ran from about ₹37 lakh to ₹5.5 crore per acre across 15 public listings checked in late October 2026, with a median of about ₹1.5 crore per acre. These are what sellers are asking, not what land has sold for.

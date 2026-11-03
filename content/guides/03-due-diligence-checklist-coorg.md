@@ -5,7 +5,7 @@ h1: What to check when you visit land in Coorg
 slug: due-diligence-checklist-coorg
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, convert-agricultural-land-kodagu, land-prices-madikeri
 ---
 On a site visit in Coorg, look at the approach road, the slope and drainage, water, the boundary, and whether your phone and power work there. Then ask the seller for the RTC, encumbrance certificate and survey sketch, and have your lawyer read them.

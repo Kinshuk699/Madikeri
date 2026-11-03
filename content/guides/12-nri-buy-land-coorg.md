@@ -5,7 +5,7 @@ h1: Buying land in Coorg as an NRI
 slug: nri-buy-land-coorg
 published: 2026-10-30
 updated: 2026-11-03
-status: draft
+status: approved
 related: how-to-buy-land-in-coorg, non-farmer-buy-agricultural-land-karnataka, due-diligence-checklist-coorg
 ---
 An NRI can't buy agricultural land, plantation property or a farm house in India under the general rules. It needs specific approval from the Reserve Bank of India. Since most land for sale in Coorg is agricultural or coffee land, this affects most listings.
