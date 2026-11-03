@@ -41,7 +41,7 @@ Compiled 29 Oct 2026 (IST). Owner decisions applied 30 Oct 2026; see OWNER-DECIS
 | 20 | 40 ft private road to the gate | 40 ft | **Owner statement** (decision 7). D1 shows a ROAD on the boundary but no width. | "40 ft approach road". The word "private" is removed. | **owner-stated, not surveyed** |
 | 21 | Contact details | polarisinfra322@gmail.com · +91 90001 59792 · +91 99633 72244 | Owner statement (decision 6) | Unchanged on display. Form notifications go to anshujsahni322@gmail.com (Netlify setting, not shown). | **owner-confirmed** |
 | 22 | "Marketed by Polaris Infra" | — | Owner statement (decision 5) | Footer line kept. Added to the contact section: "Offered directly by the owners. No brokerage." | **owner-confirmed** |
-| 23 | Price | none on site | Owner statement (decision 3) | **₹2.5 Crore total, negotiable**. Shown in specs, meta description and JSON-LD Offer (price 25000000, INR). No per-sq-ft or per-acre figure is shown. | **owner-stated** |
+| 23 | Price | none on site | Owner statement | No asking price is shown anywhere (removed 3 Nov 2026 from specs, meta description, FAQ, JSON-LD Offer and llms.txt). | **owner-stated** |
 | 24 | Elevation change "17 m" (old draft only) | — | D1 levels | 1,037.4–1,056.0 m gives ≈18.6 m | not on the live site; if used, cite as ≈19 m |
 
 ### What I could NOT verify

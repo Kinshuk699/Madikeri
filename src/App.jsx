@@ -332,16 +332,11 @@ function Property() {
               <div className="k">Sq Feet</div>
               <div className="v">{A.sqft}</div>
             </div>
-            <div className="stat">
-              <div className="k">Asking Price</div>
-              <div className="v">{O.price.short}</div>
-            </div>
           </div>
         </div>
 
         <div className="together reveal d2">
           <div className="lhs">Offered as one parcel. Room for {O.roomForHomes} homes.</div>
-          <div className="rhs">{O.price.display} · {O.price.terms}</div>
         </div>
       </div>
     </section>

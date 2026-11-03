@@ -94,16 +94,6 @@ const place = {
     { "@type": "PropertyValue", name: "Sale unit", value: "One parcel; not sold in parts" },
   ],
 };
-const offer = {
-  "@type": "Offer",
-  availability: "https://schema.org/InStock",
-  businessFunction: "http://purl.org/goodrelations/v1#Sell",
-  url: abs("/#contact"),
-  areaServed: { "@id": abs("/#place") },
-  price: O.price.amount,          // owner decision 3: ₹2.5 Crore total, negotiable
-  priceCurrency: "INR",
-  description: `Asking price ${O.price.display} for the whole parcel, ${O.price.terms}. ${O.direct}`,
-};
 const graph = {
   "@context": "https://schema.org",
   "@graph": [
@@ -123,7 +113,6 @@ const graph = {
       image: [abs(SITE.ogImage), abs("/media/parcel-still.jpg"), abs("/media/hero-poster.jpg"), abs("/media/view-poster.jpg")],
       isPartOf: { "@id": abs("/#website") },
       contentLocation: place,
-      offers: offer,
       mainEntity: { "@id": abs("/#faq") },
     },
     { "@type": "FAQPage", "@id": abs("/#faq"), url: SITE.url, mainEntity: plainFaq },
@@ -236,12 +225,11 @@ writeFileSync(path.join(DIST, "indexnow-manifest.json"), JSON.stringify({
 const d = V.drive;
 writeFileSync(path.join(DIST, "llms.txt"), `# landincoorg.in
 
-> Single-property listing: ${V.area.acres} acres (as per survey) of east-facing, valley-view land for sale as one parcel in Galibeedu, Madikeri taluk, Kodagu (Coorg), Karnataka, India. Asking price ${O.price.display}, ${O.price.terms}. Updated ${SITE.updatedHuman}.
+> Single-property listing: ${V.area.acres} acres (as per survey) of east-facing, valley-view land for sale as one parcel in Galibeedu, Madikeri taluk, Kodagu (Coorg), Karnataka, India. Updated ${SITE.updatedHuman}.
 
 ## The land
 - Area: ${V.area.acresGuntas} = ${V.area.sqm} sq m = ${V.area.sqft} sq ft (${V.area.acres} acres), as per the site survey layout (Shashikiran Surveyors, Mysore, 2025). This is the survey figure, not the RTC figure.
 - Sold as ${O.saleUnit} only, not in parts. Room for ${O.roomForHomes} homes. (owner statement)
-- Asking price: ${O.price.display} for the whole parcel, ${O.price.terms}. (owner statement)
 - Access: ${O.road}. (owner statement, not surveyed)
 - ${O.direct} Marketed by ${O.marketedBy}.
 - Location: Galibeedu area, Madikeri, Kodagu, Karnataka. Survey-boundary centre ${V.geo.lat}, ${V.geo.lng} (WGS84): ${V.mapsUrl}

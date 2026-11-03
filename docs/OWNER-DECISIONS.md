@@ -4,7 +4,7 @@
 |---|---|---|
 | 1 | One parcel only; "room for two homes" allowed | Plot map and all plot copy removed; single-parcel section with a drone still |
 | 2 | Area per D1: 1 ac 34.8 gu = 7,572.389 sq m = 81,508 sq ft = 1.87 ac, "as per survey"; D2 open | `VERIFIED.area`; title "1.87 Acre…" |
-| 3 | ₹2.5 Crore total, negotiable; no per-unit figure | Specs, meta description, JSON-LD Offer 25000000 INR |
+| 3 | No asking price shown on the site (reversed 3 Nov 2026) | Price removed from specs, meta description, FAQ, JSON-LD Offer and llms.txt |
 | 4 | "Galibeedu" in title and headings, "Gaalibeedu" once in the body | unchanged (already applied) |
 | 5 | Offered directly by the owners, marketed by Polaris Infra | Footer kept; "Offered directly by the owners. No brokerage." in contact |
 | 6 | Notifications → anshujsahni322@gmail.com; displayed contact unchanged | Netlify setting (see handoff) |
