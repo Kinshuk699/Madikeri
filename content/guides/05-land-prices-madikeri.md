@@ -41,7 +41,7 @@ Per-acre figures are worked out from each listing's asking price and area. Where
 | Madikeri (near Neerkoli, Siddapur Road) | Agriculture Land | 10,000 sqft | ₹1.20 Cr | ₹5.22 crore | [magicbricks.com](https://www.magicbricks.com/agricultural-land-for-sale-in-coorg-pppfs) | 30 Oct 2026 |
 | Galibeedu | Land | 3 Acres 30 Guntas | ₹5.5 Cr / Acre | ₹5.5 crore | [1acre.in](https://1acre.in/lands-for-sale/galibeedu-madikeri-kodagu-karnataka) | 30 Oct 2026 |
 
-**Our own listing, kept out of the figures above:** 1 acre 34.8 guntas as per survey (about 81,508 sq ft, 1.87 acres) in Galibeedu, asking ₹2.5 Crore for the whole parcel, negotiable. [Details of our land](https://landincoorg.in/). We don't quote a per-acre figure for it.
+**Our own listing, kept out of the figures above:** 1 acre 34.8 guntas as per survey (about 81,508 sq ft, 1.87 acres) in Galibeedu, sold as one parcel. [Details of our land](https://landincoorg.in/).
 
 ## What the table shows
 
