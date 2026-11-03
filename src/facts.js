@@ -19,6 +19,8 @@ export const SITE = {
   // Google Search Console URL-prefix verification (https://landincoorg.in/). Paste ONLY the content="..."
   // value from the <meta name="google-site-verification"> tag. Empty string = no tag is rendered.
   googleSiteVerification: "MVYOFYlmTxfyvzXvPzCGkUBhAHZ1Mqhc0fd2vVqXDac",
+  // Bing Webmaster Tools URL verification (https://landincoorg.in/). Empty string = no tag.
+  bingSiteVerification: "8025674CEDB89BDDD41E15CA80164ED4",
 };
 
 export const VERIFIED = {
